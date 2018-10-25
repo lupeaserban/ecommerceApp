@@ -7,9 +7,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-
-import Button from "components/CustomButtons/Button.jsx";
 // core components
+import SimpleModal from "components/myComponents/OrganizerModal.jsx";
 import tableStyle from "assets/jss/material-dashboard-react/components/tableStyle.jsx";
 
 function CustomTable({ ...props }) {
@@ -45,11 +44,8 @@ function CustomTable({ ...props }) {
                     </TableCell>
                   );
                 })}
-                <TableCell>
-                  <Button color="primary" round size="sm">
-                    {" "}
-                    +{" "}
-                  </Button>
+                <TableCell padding="none">
+                  <SimpleModal />
                 </TableCell>
               </TableRow>
             );

@@ -11,13 +11,10 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Header from "components/Header/Header.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
-
 import dashboardRoutes from "routes/dashboard.jsx";
-
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
-
 import image from "assets/img/sidebar-2.jpg";
-import logo from "assets/img/reactlogo.png";
+import logo from "assets/img/apple-icon.png";
 
 const switchRoutes = (
   <Switch>
@@ -71,7 +68,7 @@ class App extends React.Component {
       <div className={classes.wrapper}>
         <Sidebar
           routes={dashboardRoutes}
-          logoText={"Creative Tim"}
+          logoText={""}
           logo={logo}
           image={image}
           handleDrawerToggle={this.handleDrawerToggle}

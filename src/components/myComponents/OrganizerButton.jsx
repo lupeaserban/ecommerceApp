@@ -7,9 +7,8 @@ import PropTypes from "prop-types";
 // material-ui components
 import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "@material-ui/core/Button";
-
 import buttonStyle from "assets/jss/material-dashboard-react/components/buttonStyle.jsx";
-function RegularButton({ ...props }) {
+function OrganizerButton({ ...props }) {
   const {
     classes,
     color,
@@ -45,7 +44,7 @@ function RegularButton({ ...props }) {
   );
 }
 
-RegularButton.propTypes = {
+OrganizerButton.propTypes = {
   classes: PropTypes.object.isRequired,
   color: PropTypes.oneOf([
     "primary",
@@ -69,4 +68,4 @@ RegularButton.propTypes = {
   muiClasses: PropTypes.object
 };
 
-export default withStyles(buttonStyle)(RegularButton);
+export default withStyles(buttonStyle)(OrganizerButton);

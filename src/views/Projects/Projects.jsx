@@ -1,27 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 // @material-ui/core
 import withStyles from "@material-ui/core/styles/withStyles";
-// @material-ui/icons
-// import Store from "@material-ui/icons/Store";
-
+//core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Table from "components/Table/Table.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
-
 import CardBody from "components/Card/CardBody.jsx";
-
-// import { bugs, website, server } from "variables/general.jsx";
-
-// import {
-//   dailySalesChart,
-//   emailsSubscriptionChart,
-//   completedTasksChart
-// } from "variables/charts.jsx";
-
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 
 class Projects extends React.Component {
