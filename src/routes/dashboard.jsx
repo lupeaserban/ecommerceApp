@@ -40,14 +40,14 @@ const dashboardRoutes = [
     path: "/clients",
     sidebarName: "Clients",
     navbarName: "Clients",
-    icon: "content_paste",
+    icon: BubbleChart,
     component: Clients
   },
   {
     path: "/organizer",
     sidebarName: "Organizer",
     navbarName: "Organizer",
-    icon: BubbleChart,
+    icon: "content_paste",
     component: Organizer
   },
   {
