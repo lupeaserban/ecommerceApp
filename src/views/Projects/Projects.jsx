@@ -1,42 +1,51 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link, Route } from "react-router-dom";
-import Client from "views/Clients/Client.jsx";
+import ProjectsTable from "components/myComponents/ProjectsTable";
 // @material-ui/core
 import withStyles from "@material-ui/core/styles/withStyles";
+import GridItem from "components/Grid/GridItem.jsx";
+import GridContainer from "components/Grid/GridContainer.jsx";
+import Card from "components/Card/Card.jsx";
+import CardHeader from "components/Card/CardHeader.jsx";
+import CardBody from "components/Card/CardBody.jsx";
+import AddProjectModal from "components/myComponents/AddProjectModal";
 //core components
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 
-const clients = [
-  {
-    name: "client name",
-    id: "client1"
-  },
-  {
-    name: "client name2",
-    id: "client2"
-  }
-];
-
 class Projects extends React.Component {
-  state = {
-    value: 0
-  };
-
   render() {
     const { classes } = this.props;
     return (
       <div>
-        <ul>
-          {clients.map(({ name, id }) => (
-            <li key={id}>
-              <Link to={`/projects/${id}`}>{name}</Link>
-            </li>
-          ))}
-        </ul>
-        <hr />
+        <GridContainer>
+          <GridItem xs={12} sm={12} md={12}>
+            <Card>
+              <CardHeader color="primary">
+                <h4 className={classes.cardTitleWhite}>Stats</h4>
+                <p className={classes.cardCategoryWhite}>Details</p>
+              </CardHeader>
 
-        <Route path={`/projects/:clientsId`} component={Client} />
+              <CardBody>
+                <ProjectsTable
+                  tableHeaderColor="primary"
+                  tableHead={[
+                    "ID",
+                    "Client",
+                    "Project Name",
+                    "Project Manager",
+                    "Deadline"
+                  ]}
+                  tableData={[
+                    ["12", "Niger", "Oud-Turnhout", "X", "this year"],
+                    ["23", "Curaçao", "Sinaai-Waas", "Y", "this month"],
+                    ["45", "Netherlands", "Baileux", "Z", "today"]
+                  ]}
+                />
+                <AddProjectModal />
+              </CardBody>
+            </Card>
+          </GridItem>
+        </GridContainer>
       </div>
     );
   }
