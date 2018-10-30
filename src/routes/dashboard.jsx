@@ -9,6 +9,7 @@ import LocationOn from "@material-ui/icons/LocationOn";
 // core components/views
 import Home from "views/Home/Home.jsx";
 import Projects from "views/Projects/Projects.jsx";
+import Project from "views/Projects/Project.jsx";
 import UserProfile from "views/UserProfile/UserProfile.jsx";
 import Clients from "views/Clients/Clients.jsx";
 import Organizer from "views/Organizer/Organizer.jsx";

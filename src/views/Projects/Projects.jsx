@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link, Route, Redirect } from "react-router-dom";
 import ProjectsTable from "components/myComponents/ProjectsTable";
 // @material-ui/core
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -9,6 +10,7 @@ import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import AddProjectModal from "components/myComponents/AddProjectModal";
+import Project from "views/Projects/Project.jsx";
 //core components
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 
@@ -30,17 +32,42 @@ class Projects extends React.Component {
                   tableHeaderColor="primary"
                   tableHead={[
                     "ID",
+                    "Denumire",
+                    "RefID",
+                    "Status",
+                    "PM",
                     "Client",
-                    "Project Name",
-                    "Project Manager",
-                    "Deadline"
+                    "Start Date",
+                    "End Date"
                   ]}
                   tableData={[
-                    ["12", "Niger", "Oud-Turnhout", "X", "this year"],
-                    ["23", "Curaçao", "Sinaai-Waas", "Y", "this month"],
-                    ["45", "Netherlands", "Baileux", "Z", "today"]
+                    [
+                      "1",
+                      "Platforma Conta",
+                      "12-AB",
+                      "Pending",
+                      "Tudor",
+                      "Iulia",
+                      "Nov 5th",
+                      "Dec 20th"
+                    ]
                   ]}
                 />
+                <div>
+                  <Link to="/projects/project">
+                    GO TO
+                    <Route
+                      exact
+                      path="/projects/project"
+                      render={() => (
+                        <div>
+                          <Project />
+                          <Redirect to="/projects/project" />
+                        </div>
+                      )}
+                    />
+                  </Link>
+                </div>
                 <AddProjectModal />
               </CardBody>
             </Card>

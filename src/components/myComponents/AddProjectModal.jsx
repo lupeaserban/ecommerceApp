@@ -4,12 +4,12 @@ import { withStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import AddProjectButton from "components/myComponents/AddProjectButton.jsx";
 import FilledInput from "@material-ui/core/FilledInput";
+import Button from "@material-ui/core/Button";
 
 const styles = theme => ({
   paper: {
     display: "flex",
     flexWrap: "wrap",
-
     width: theme.spacing.unit * 50,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
@@ -55,6 +55,10 @@ class AddProjectModal extends React.Component {
             <FilledInput placeholder="ID" />
             <FilledInput placeholder="Project Name" />
             <FilledInput placeholder="Project Manager" />
+            <FilledInput placeholder="Deadline" />
+            <Button variant="contained" color="primary">
+              Add
+            </Button>
           </div>
         </Modal>
       </div>
