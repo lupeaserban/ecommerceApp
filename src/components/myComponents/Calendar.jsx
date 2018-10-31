@@ -10,11 +10,7 @@ export default class Calendar extends React.Component {
   };
 
   renderHeader() {
-    return (
-      <div>
-        <DatePicker />
-      </div>
-    );
+    return <div />;
   }
 
   renderDay() {

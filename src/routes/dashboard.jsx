@@ -58,7 +58,7 @@ const dashboardRoutes = [
     icon: LocationOn,
     component: Maps
   },
-  { redirect: true, path: "/", to: "/", navbarName: "Redirect" }
+  { redirect: true, path: "/", to: "/home", navbarName: "Redirect" }
 ];
 
 export default dashboardRoutes;
