@@ -6,19 +6,21 @@ export default class Task extends React.Component {
     return (
       <div
         style={{
+          display: "flex",
+          justifyContent: "flex-start",
+          alignItems: "center",
           borderStyle: "solid",
           borderColor: "white",
           borderWidth: "1px",
-          display: "flex",
           height: "40px",
           width: "auto",
-          background: "indianred",
+          background: "salmon",
           textAlign: "center"
         }}
       >
         <div>
-          <b>Task </b>
-          <Checkbox />
+          <Checkbox color="primary" />
+          <b>Task name to be handled </b>
         </div>
       </div>
     );

@@ -1,40 +1,64 @@
 import React from "react";
 import { Button } from "@material-ui/core";
+import ButtonBase from "@material-ui/core/ButtonBase";
+import Add from "@material-ui/icons/Add";
+import Input from "@material-ui/core/Input";
 import Event from "components/myComponents/Event.jsx";
 import Task from "components/myComponents/Task.jsx";
+import Milestone from "components/myComponents/Milestone.jsx";
 
 export default class Timeline extends React.Component {
-  addTask = () => {};
+  state = {
+    value: "",
+    items: []
+  };
 
-  addMilestone = () => {};
+  handleChange = e => {
+    this.setState({ value: e.target.value });
+  };
 
-  addEvents = () => {};
+  handleSubmit = e => {
+    e.preventDefault();
+    if (this.state.value === "task") {
+      console.log("task");
+    }
+  };
 
   render() {
     return (
       <div>
-        <b>Timeline</b>
-        <hr />
-        <Button>Add Task</Button>
-        <Button>Add Milestone</Button>
-        <Button>Add Event</Button>
-
         <div
           style={{
-            height: "50px",
-            width: "auto",
-            background: "#F8DE7E"
+            display: "flex",
+            justifyContent: "flex-start",
+            alignItems: "center"
           }}
         >
-          Milestone
-          <Button variant="text" size="small">
-            EDIT
-          </Button>
-          <Button variant="text" size="small">
-            DELETE
-          </Button>
+          <b>Timeline</b>
+          <hr />
+
+          <form onSubmit={this.handleSubmit}>
+            <Input
+              value={this.state.value}
+              onChange={this.handleChange}
+              placeholder="add an item to this timeline"
+            />
+            <Button variant="raised" type="submit" color="primary">
+              <Add />
+            </Button>
+          </form>
+
+          <hr />
         </div>
+        <div>{this.state.value === "task" ? <Task /> : <Event />}</div>
         <Event />
+        <Task />
+        <Event />
+        <Task />
+        <Task />
+        <Milestone />
+        <Event />
+        <Task />
         <Task />
       </div>
     );

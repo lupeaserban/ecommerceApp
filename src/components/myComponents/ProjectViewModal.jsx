@@ -43,7 +43,7 @@ class ProjectViewModal extends React.Component {
           View
         </Button>
         <Modal
-          style={{ paddingLeft: "40%", paddingTop: "10%" }}
+          style={{ paddingLeft: "40%", paddingTop: "5%", overflow: "scroll" }}
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
           open={this.state.open}
