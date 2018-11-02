@@ -38,7 +38,6 @@ class AddProjectModal extends React.Component {
           variant="contained"
           color="primary"
           size="small"
-          round
           onClick={this.handleOpen}
         >
           +

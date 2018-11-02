@@ -32,12 +32,11 @@ class ProjectViewModal extends React.Component {
     const { classes, details } = this.props;
 
     return (
-      <div>
+      <th>
         <Button
           variant="contained"
           color="primary"
           size="small"
-          round
           onClick={this.handleOpen}
         >
           View
@@ -57,7 +56,7 @@ class ProjectViewModal extends React.Component {
             <Timeline />
           </div>
         </Modal>
-      </div>
+      </th>
     );
   }
 }
