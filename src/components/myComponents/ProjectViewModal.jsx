@@ -49,10 +49,9 @@ class ProjectViewModal extends React.Component {
           onClose={this.handleClose}
         >
           <div className={classes.paper}>
-            <b>{details[1]}</b>
-            <p>Client: {details[5]}</p>
-            <p>Priority: {details[8]}</p>
-
+            <b>{details.name}</b>
+            <p>PM: {details.pm.name}</p>
+            <p>{details.status}</p>
             <Timeline />
           </div>
         </Modal>

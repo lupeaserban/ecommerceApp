@@ -3,7 +3,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Edit from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 
-export default class Event extends React.Component {
+export default class Meeting extends React.Component {
   render() {
     return (
       <div
@@ -29,7 +29,7 @@ export default class Event extends React.Component {
           }}
         >
           <p>
-            <b>EventName </b>
+            <b>MEETING </b>
           </p>
 
           <h8>12 Dec 2018</h8>

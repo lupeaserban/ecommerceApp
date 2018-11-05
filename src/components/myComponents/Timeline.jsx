@@ -1,61 +1,61 @@
 import React from "react";
 import { Button } from "@material-ui/core";
 import Add from "@material-ui/icons/Add";
-import Event from "components/myComponents/Event.jsx";
+import Meeting from "components/myComponents/Meeting.jsx";
 import Task from "components/myComponents/Task.jsx";
+import SimpleDialog from "components/myComponents/Dialog.jsx";
 import Milestone from "components/myComponents/Milestone.jsx";
 
+const eventType = ["TASK", "MEETING", "MILESTONE"];
+
 export default class Timeline extends React.Component {
-  state = {
-    //arrayul de events se va tine in state
-    item: "",
-    counter: 0
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+      selectedValue: "",
+      events: []
+    };
+  }
+
+  handleClickOpen = () => {
+    this.setState({
+      open: true
+    });
+  };
+
+  handleClose = value => {
+    this.setState({ selectedValue: value, open: false });
+    this.addItem();
   };
 
   //separa functiile pentru ca fiecare functie sa faca doar un lucru
-  displayItem = () => {
-    let items = [];
-    for (let i = 0; i < this.state.counter; i++) {
-      if (this.state.item === "task") {
-        items.push(
-          <div key={i}>
-            <Task />
-          </div>
-        );
-      } else {
-        items.push(
-          <div key={i}>
-            <Event />
-          </div>
-        );
-      }
-    }
-    return items || null;
+  displayEvent = () => {
+    return (
+      <div>
+        <ul>
+          {this.state.events.map(item => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </div>
+    );
   };
 
   // sa fie doar o functie care adauga un event (task, meeting sau milestone)
-  addTask = () => {
+  addItem = () => {
+    console.log("aa");
     this.setState(prevState => {
+      let events = [];
+      if (prevState.selectedValue === "TASK") {
+        events = prevState.events.concat(<Task />);
+      } else if (prevState.selectedValue === "MEETING") {
+        events = prevState.events.concat(<Meeting />);
+      } else if (prevState.selectedValue === "MILESTONE") {
+        events = prevState.events.concat(<Milestone />);
+      }
       return {
-        item: "task",
-        counter: prevState.counter + 1
-      };
-    });
-  };
-
-  addEvent = () => {
-    this.setState(prevState => {
-      return {
-        item: "event",
-        counter: prevState.counter + 1
-      };
-    });
-  };
-
-  addMilestone = () => {
-    this.setState(prevState => {
-      return {
-        item: "milestone",
+        events,
         counter: prevState.counter + 1
       };
     });
@@ -74,18 +74,22 @@ export default class Timeline extends React.Component {
         >
           <b>Timeline</b>
           <hr />
-          <Button onClick={this.addTask} variant="raised">
-            <Add />
-          </Button>
-          <Button onClick={this.addEvent} variant="raised">
-            <Add />
-          </Button>
-          <Button onClick={this.addMilestone} variant="raised">
-            <Add />
-          </Button>
+
           <hr />
+          <Button onClick={this.handleClickOpen}>
+            <Add />
+          </Button>
+          <SimpleDialog
+            events={eventType}
+            selectedValue={this.state.selectedValue}
+            open={this.state.open}
+            onClose={this.handleClose}
+          />
         </div>
-        <div>{this.displayItem()}</div>
+        <div>{this.displayEvent()}</div>
+        <Meeting />
+        <Task />
+        <Task />
       </div>
     );
   }
