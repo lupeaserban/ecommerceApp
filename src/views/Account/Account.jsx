@@ -4,9 +4,9 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 const styles = {};
 
-function Home(props) {
+function Account(props) {
   const { classes } = props;
-  return <div>I am Home</div>;
+  return <div>Details of my Account.</div>;
 }
 
-export default withStyles(styles)(Home);
+export default withStyles(styles)(Account);

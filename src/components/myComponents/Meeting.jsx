@@ -29,11 +29,9 @@ export default class Meeting extends React.Component {
           }}
         >
           <p>
-            <b>MEETING </b>
+            <b>{this.props.name} </b>
           </p>
-
-          <h8>12 Dec 2018</h8>
-          <p>17:30</p>
+          <p>{this.props.dueDate}</p>
         </div>
         <div
           style={{

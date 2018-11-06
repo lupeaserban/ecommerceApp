@@ -2,8 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
-import OrganizerButton from "components/myComponents/OrganizerButton.jsx";
-import Calendar from "components/myComponents/Calendar.jsx";
+import Button from "@material-ui/core/Button";
 
 const styles = theme => ({
   paper: {
@@ -33,14 +32,9 @@ class SimpleModal extends React.Component {
 
     return (
       <div>
-        <OrganizerButton
-          color="primary"
-          size="sm"
-          round
-          onClick={this.handleOpen}
-        >
+        <Button color="primary" size="sm" round onClick={this.handleOpen}>
           View
-        </OrganizerButton>
+        </Button>
         <Modal
           style={{ paddingLeft: "40%", paddingTop: "10%" }}
           aria-labelledby="simple-modal-title"
@@ -48,9 +42,7 @@ class SimpleModal extends React.Component {
           open={this.state.open}
           onClose={this.handleClose}
         >
-          <div className={classes.paper}>
-            <Calendar />
-          </div>
+          <div className={classes.paper} />
         </Modal>
       </div>
     );

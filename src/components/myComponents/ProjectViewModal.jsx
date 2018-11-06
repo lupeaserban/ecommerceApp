@@ -62,7 +62,7 @@ class ProjectViewModal extends React.Component {
 
 ProjectViewModal.propTypes = {
   classes: PropTypes.object.isRequired,
-  details: PropTypes.array
+  details: PropTypes.object
 };
 
 // We need an intermediary variable for handling the recursive nesting.

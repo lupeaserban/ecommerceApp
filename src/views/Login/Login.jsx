@@ -8,7 +8,7 @@ import Button from "components/CustomButtons/Button.jsx";
 
 const styles = {};
 
-function UserProfile(props) {
+function Login(props) {
   const { classes } = props;
   return (
     <div>
@@ -24,4 +24,4 @@ function UserProfile(props) {
   );
 }
 
-export default withStyles(styles)(UserProfile);
+export default withStyles(styles)(Login);

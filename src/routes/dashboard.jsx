@@ -1,27 +1,25 @@
 // @material-ui/icons
-import Dashboard from "@material-ui/icons/Dashboard";
 import Person from "@material-ui/icons/Person";
 import Folder from "@material-ui/icons/Folder";
-
-// import ContentPaste from "@material-ui/icons/ContentPaste";
 import BubbleChart from "@material-ui/icons/BubbleChart";
 import LocationOn from "@material-ui/icons/LocationOn";
+import Notification from "@material-ui/icons/NotificationImportant";
 // core components/views
-import Home from "views/Home/Home.jsx";
+import Account from "views/Account/Account.jsx";
 import Projects from "views/Projects/Projects.jsx";
-import Project from "views/Projects/Project.jsx";
-import UserProfile from "views/UserProfile/UserProfile.jsx";
+import Login from "views/Login/Login.jsx";
 import Clients from "views/Clients/Clients.jsx";
 import Organizer from "views/Organizer/Organizer.jsx";
 import Maps from "views/Maps/Maps.jsx";
+import Notifications from "views/Notifications/Notifications";
 
 const dashboardRoutes = [
   {
-    path: "/home",
-    sidebarName: "Home",
-    navbarName: "Home",
-    icon: Dashboard,
-    component: Home
+    path: "/account",
+    sidebarName: "My Account",
+    navbarName: "My Account",
+    icon: Person,
+    component: Account
   },
   {
     path: "/projects",
@@ -31,11 +29,12 @@ const dashboardRoutes = [
     component: Projects
   },
   {
-    path: "/user",
-    sidebarName: "Users",
-    navbarName: "Users",
+    path: "/login",
+    sidebarName: "Login Page",
+    navbarName: "Login or Sign Up",
     icon: Person,
-    component: UserProfile
+    component: Login,
+    invisible: true
   },
   {
     path: "/clients",
@@ -52,13 +51,19 @@ const dashboardRoutes = [
     component: Organizer
   },
   {
+    path: "/notifications",
+    sidebarName: "Notifications",
+    icon: Notification,
+    component: Notifications
+  },
+  {
     path: "/maps",
     sidebarName: "Maps",
     navbarName: "Map",
     icon: LocationOn,
     component: Maps
   },
-  { redirect: true, path: "/", to: "/home", navbarName: "Redirect" }
+  { redirect: true, path: "/", to: "/login", navbarName: "Redirect" }
 ];
 
 export default dashboardRoutes;

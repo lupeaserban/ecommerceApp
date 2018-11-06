@@ -14,7 +14,7 @@ import Sidebar from "components/Sidebar/Sidebar.jsx";
 import dashboardRoutes from "routes/dashboard.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 import image from "assets/img/sidebar-2.jpg";
-import logo from "assets/img/apple-icon.png";
+import logo from "assets/img/reactlogo.png";
 
 const switchRoutes = (
   <Switch>

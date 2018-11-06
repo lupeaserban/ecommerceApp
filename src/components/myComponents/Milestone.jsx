@@ -17,6 +17,8 @@ export default class Milestone extends React.Component {
         }}
       >
         <b>MILESTONE X REACHED! </b>
+        {this.props.name}
+        {this.props.dueDate}
       </div>
     );
   }

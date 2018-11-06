@@ -11,7 +11,6 @@ import AddProjectModal from "components/myComponents/AddProjectModal";
 import TableHead from "@material-ui/core/TableHead";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-
 import TableRow from "@material-ui/core/TableRow";
 //core components
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
@@ -45,48 +44,46 @@ class Projects extends React.Component {
       "PM"
     ];
     return (
-      <div>
-        <GridContainer>
-          <GridItem xs={12} sm={12} md={12}>
-            <Card>
-              <CardBody>
-                <TableHead>
-                  <TableRow>
-                    {tableHead.map((prop, key) => {
-                      return (
-                        <TableCell
-                          className={
-                            classes.tableCell + " " + classes.tableHeadCell
-                          }
-                          key={key}
-                        >
-                          {prop}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {this.state.rows.map(row => {
+      <GridContainer>
+        <GridItem xs={12} sm={12} md={12}>
+          <Card>
+            <CardBody>
+              <TableHead>
+                <TableRow>
+                  {tableHead.map((prop, key) => {
                     return (
-                      <TableRow key={row.id}>
-                        <TableCell>{row.id}</TableCell>
-                        <TableCell>{row.name}</TableCell>
-                        <TableCell>{row.status}</TableCell>
-                        <TableCell>{row.startDate}</TableCell>
-                        <TableCell>{row.endDate}</TableCell>
-                        <TableCell>{row.pm.name}</TableCell>
-                        <ProjectViewModal details={row} />
-                      </TableRow>
+                      <TableCell
+                        className={
+                          classes.tableCell + " " + classes.tableHeadCell
+                        }
+                        key={key}
+                      >
+                        {prop}
+                      </TableCell>
                     );
                   })}
-                </TableBody>
-                <AddProjectModal />
-              </CardBody>
-            </Card>
-          </GridItem>
-        </GridContainer>
-      </div>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {this.state.rows.map(row => {
+                  return (
+                    <TableRow key={row.id}>
+                      <TableCell>{row.id}</TableCell>
+                      <TableCell>{row.name}</TableCell>
+                      <TableCell>{row.status}</TableCell>
+                      <TableCell>{row.startDate}</TableCell>
+                      <TableCell>{row.endDate}</TableCell>
+                      <TableCell>{row.pm.name}</TableCell>
+                      <ProjectViewModal details={row} />
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+              <AddProjectModal />
+            </CardBody>
+          </Card>
+        </GridItem>
+      </GridContainer>
     );
   }
 }

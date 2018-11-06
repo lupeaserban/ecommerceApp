@@ -14,10 +14,66 @@ export default class Timeline extends React.Component {
     this.state = {
       open: false,
       selectedValue: "",
-      events: []
+      events: [],
+      apiEvents: []
     };
   }
 
+  componentDidMount() {
+    fetch("https://im-project-manager.appspot.com/api/projects")
+      .then(function(response) {
+        return response.json();
+      })
+      .then(myJson => {
+        this.setState({
+          apiEvents: myJson[0].events
+        });
+      });
+  }
+
+  //display the events coming from the API
+
+  displayApiEvents = () => {
+    //loop through the array and identify the type
+    //based on the type render a component passing down props
+    return (
+      <div>
+        <ul style={{ listStyle: "none", paddingLeft: "0px" }}>
+          {this.state.apiEvents.map(item => {
+            if (item.type === "task") {
+              return (
+                <li key={item}>
+                  {" "}
+                  <Task
+                    name={item.title}
+                    priority={item.priority}
+                    dueDate={item.dueDate}
+                  />
+                </li>
+              );
+            } else if (item.type === "meeting") {
+              return (
+                <li key={item}>
+                  {" "}
+                  <Meeting name={item.title} dueDate={item.dueDate} />{" "}
+                </li>
+              );
+            } else if (item.type === "milestone") {
+              return (
+                <li key={item}>
+                  {" "}
+                  <Milestone name={item.title} dueDate={item.dueDate} />{" "}
+                </li>
+              );
+            }
+            return null;
+          })}
+        </ul>
+      </div>
+    );
+  };
+
+  //handle adding new events
   handleClickOpen = () => {
     this.setState({
       open: true
@@ -33,7 +89,7 @@ export default class Timeline extends React.Component {
   displayEvent = () => {
     return (
       <div>
-        <ul>
+        <ul style={{ listStyle: "none", paddingLeft: "0px" }}>
           {this.state.events.map(item => (
             <li key={item}>{item}</li>
           ))}
@@ -44,7 +100,6 @@ export default class Timeline extends React.Component {
 
   // sa fie doar o functie care adauga un event (task, meeting sau milestone)
   addItem = () => {
-    console.log("aa");
     this.setState(prevState => {
       let events = [];
       if (prevState.selectedValue === "TASK") {
@@ -61,7 +116,6 @@ export default class Timeline extends React.Component {
     });
   };
 
-  //adauga un modal de unde sa selectezi ce fel de event vrei adaugi
   render() {
     return (
       <div>
@@ -87,9 +141,7 @@ export default class Timeline extends React.Component {
           />
         </div>
         <div>{this.displayEvent()}</div>
-        <Meeting />
-        <Task />
-        <Task />
+        <div>{this.displayApiEvents()}</div>
       </div>
     );
   }

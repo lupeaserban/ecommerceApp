@@ -44,7 +44,7 @@ export default class SimpleDialog extends React.Component {
 }
 
 SimpleDialog.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object,
   onClose: PropTypes.func,
   selectedValue: PropTypes.string
 };

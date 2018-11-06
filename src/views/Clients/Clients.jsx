@@ -2,11 +2,26 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link, Route } from "react-router-dom";
 import Client from "views/Clients/Client.jsx";
-import ClientsList from "views/Clients/ClientsList.jsx";
+
 // @material-ui/core
 import withStyles from "@material-ui/core/styles/withStyles";
 //core components
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
+
+const ClientsList = [
+  {
+    name: "ClientName1",
+    id: "client1"
+  },
+  {
+    name: "ClientName2",
+    id: "client2"
+  },
+  {
+    name: "ClientName3",
+    id: "client3"
+  }
+];
 
 class Clients extends React.Component {
   render() {

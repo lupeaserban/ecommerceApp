@@ -20,7 +20,9 @@ export default class Task extends React.Component {
       >
         <div>
           <Checkbox color="primary" />
-          <b>Task name to be handled </b>
+          <b>{this.props.name}</b>
+          {this.props.priority}
+          {this.props.dueDate}
         </div>
       </div>
     );
