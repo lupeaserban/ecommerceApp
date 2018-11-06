@@ -1,9 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
-import FilledInput from "@material-ui/core/FilledInput";
-import Button from "@material-ui/core/Button";
+import { TextField, Modal, Button } from "@material-ui/core";
 
 const styles = theme => ({
   paper: {
@@ -18,7 +16,16 @@ const styles = theme => ({
 
 class AddProjectModal extends React.Component {
   state = {
-    open: false
+    open: false,
+    projectData: {
+      name: "",
+      companyId: null,
+      pmId: null,
+      startDate: "",
+      endDate: "",
+      status: "",
+      clientUserId: null
+    }
   };
 
   handleOpen = () => {
@@ -27,6 +34,39 @@ class AddProjectModal extends React.Component {
 
   handleClose = () => {
     this.setState({ open: false });
+  };
+
+  handleInputChange = e => {
+    this.setState({ [e.target.name]: e.target.value }); //https://medium.com/@tmkelly28/handling-multiple-form-inputs-in-react-c5eb83755d15
+    console.log(this.state);
+  };
+
+  doPost = () => {
+    const data = {
+      name: "Proiect 2",
+      companyId: 3,
+      pmId: 1,
+      startDate: "2018-11-01",
+      endDate: "2018-11-30",
+      status: "in-progress",
+      clientUserId: 2
+    };
+
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    const options = {
+      method: "POST",
+      headers,
+      body: JSON.stringify(data)
+    };
+
+    const request = new Request(
+      "https://im-project-manager.appspot.com/api/projects",
+      options
+    );
+    const response = fetch(request);
+    const status = response.status;
   };
 
   render() {
@@ -50,12 +90,42 @@ class AddProjectModal extends React.Component {
           onClose={this.handleClose}
         >
           <div className={classes.paper}>
-            <FilledInput placeholder="Client" />
-            <FilledInput placeholder="ID" />
-            <FilledInput placeholder="Project Name" />
-            <FilledInput placeholder="Project Manager" />
-            <FilledInput placeholder="Deadline" />
-            <Button variant="contained" color="primary">
+            <TextField
+              name="name"
+              placeholder="name"
+              onChange={this.handleInputChange}
+            />
+            <TextField
+              name="companyID"
+              placeholder="companyId"
+              onChange={this.handleInputChange}
+            />
+            <TextField
+              name="pmId"
+              placeholder="pmId"
+              onChange={this.handleInputChange}
+            />
+            <TextField
+              name="start date"
+              placeholder="start date"
+              onChange={this.handleInputChange}
+            />
+            <TextField
+              name="end date"
+              placeholder="end date"
+              onChange={this.handleInputChange}
+            />
+            <TextField
+              name="status"
+              placeholder="status"
+              onChange={this.handleInputChange}
+            />
+            <TextField
+              name="clientUserID"
+              placeholder="clientUserID"
+              onChange={this.handleInputChange}
+            />
+            <Button variant="contained" color="primary" onClick={this.doPost}>
               Add
             </Button>
           </div>

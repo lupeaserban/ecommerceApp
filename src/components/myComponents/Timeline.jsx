@@ -26,13 +26,12 @@ export default class Timeline extends React.Component {
       })
       .then(myJson => {
         this.setState({
-          apiEvents: myJson[0].events
+          apiEvents: myJson[0].events // TODO: make apiEvents relevant to selected project, myJson[0] points to first project !!!!
         });
       });
   }
 
   //display the events coming from the API
-
   displayApiEvents = () => {
     //loop through the array and identify the type
     //based on the type render a component passing down props
