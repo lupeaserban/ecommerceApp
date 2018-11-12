@@ -32,10 +32,7 @@ class Clients extends React.Component {
         {ClientsList.map(({ name, id }) => (
           <li key={id}>
             <Link to={`/clients/${name}`}>{name}</Link>
-            <Route
-              path={`/clients/${name}`}
-              render={props => <Client id={id} {...props} />}
-            />
+            <Route path={`/clients/${name}`} />
           </li>
         ))}
       </div>

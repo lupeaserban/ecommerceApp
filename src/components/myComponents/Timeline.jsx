@@ -20,14 +20,19 @@ export default class Timeline extends React.Component {
   }
 
   componentDidMount() {
-    fetch("https://im-project-manager.appspot.com/api/projects")
+    console.log(this.props.details);
+    fetch(
+      "https://im-project-manager.appspot.com/api/projects/" +
+        this.props.details.id
+    )
       .then(function(response) {
         return response.json();
       })
       .then(myJson => {
         this.setState({
-          apiEvents: myJson[0].events // TODO: make apiEvents relevant to selected project, myJson[0] points to first project !!!!
+          apiEvents: myJson.events
         });
+        console.log(myJson.events);
       });
   }
 
@@ -38,10 +43,10 @@ export default class Timeline extends React.Component {
     return (
       <div>
         <ul style={{ listStyle: "none", paddingLeft: "0px" }}>
-          {this.state.apiEvents.map(item => {
+          {this.state.apiEvents.map((item, i) => {
             if (item.type === "task") {
               return (
-                <li key={item}>
+                <li key={i}>
                   {" "}
                   <Task
                     name={item.title}
@@ -52,14 +57,14 @@ export default class Timeline extends React.Component {
               );
             } else if (item.type === "meeting") {
               return (
-                <li key={item}>
+                <li key={i}>
                   {" "}
                   <Meeting name={item.title} dueDate={item.dueDate} />{" "}
                 </li>
               );
             } else if (item.type === "milestone") {
               return (
-                <li key={item}>
+                <li key={i}>
                   {" "}
                   <Milestone name={item.title} dueDate={item.dueDate} />{" "}
                 </li>
@@ -72,7 +77,6 @@ export default class Timeline extends React.Component {
     );
   };
 
-  //handle adding new events
   handleClickOpen = () => {
     this.setState({
       open: true
@@ -89,23 +93,61 @@ export default class Timeline extends React.Component {
     return (
       <div>
         <ul style={{ listStyle: "none", paddingLeft: "0px" }}>
-          {this.state.events.map(item => (
-            <li key={item}>{item}</li>
+          {this.state.events.map((item, i) => (
+            <li key={i}>{item}</li>
           ))}
         </ul>
       </div>
     );
   };
 
-  // sa fie doar o functie care adauga un event (task, meeting sau milestone)
   addItem = () => {
     this.setState(prevState => {
       let events = [];
       if (prevState.selectedValue === "TASK") {
+        this.doPost({
+          id: 1,
+          type: "task",
+          createdById: 1,
+          dueDate: "2018-11-05",
+          priority: "medium",
+          title: "new task",
+          pmFeedback: null,
+          created_at: null,
+          updated_at: null,
+          projectId: this.props.details.id,
+          statuses: []
+        });
         events = prevState.events.concat(<Task />);
       } else if (prevState.selectedValue === "MEETING") {
+        this.doPost({
+          id: 2,
+          type: "meeting",
+          createdById: 1,
+          dueDate: "2018-11-05",
+          priority: "medium",
+          title: "new meeting",
+          pmFeedback: null,
+          created_at: null,
+          updated_at: null,
+          projectId: this.props.details.id,
+          statuses: []
+        });
         events = prevState.events.concat(<Meeting />);
       } else if (prevState.selectedValue === "MILESTONE") {
+        this.doPost({
+          id: 3,
+          type: "milestone",
+          createdById: 1,
+          dueDate: "2018-11-05",
+          priority: "medium",
+          title: "new task",
+          pmFeedback: null,
+          created_at: null,
+          updated_at: null,
+          projectId: this.props.details.id,
+          statuses: []
+        });
         events = prevState.events.concat(<Milestone />);
       }
       return {
@@ -113,6 +155,25 @@ export default class Timeline extends React.Component {
         counter: prevState.counter + 1
       };
     });
+  };
+
+  doPost = event => {
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    const options = {
+      method: "POST",
+      headers,
+      body: JSON.stringify(event)
+    };
+
+    const request = new Request(
+      "https://im-project-manager.appspot.com/api/events",
+      options
+    );
+    const response = fetch(request);
+    console.log(request);
+    console.log(response);
+    const status = response.status;
   };
 
   render() {

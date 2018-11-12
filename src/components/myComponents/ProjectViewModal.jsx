@@ -50,9 +50,10 @@ class ProjectViewModal extends React.Component {
         >
           <div className={classes.paper}>
             <b>{details.name}</b>
-            <p>PM: {details.pm.name}</p>
+            <p>{details.company.name}</p>
+            <p>PM: {details.pm ? details.pm.name : null}</p>
             <p>{details.status}</p>
-            <Timeline />
+            <Timeline details={details} />
           </div>
         </Modal>
       </th>

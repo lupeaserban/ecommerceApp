@@ -3,10 +3,7 @@ import PropTypes from "prop-types";
 import ProjectViewModal from "components/myComponents/ProjectViewModal";
 // @material-ui/core
 import withStyles from "@material-ui/core/styles/withStyles";
-import GridItem from "components/Grid/GridItem.jsx";
-import GridContainer from "components/Grid/GridContainer.jsx";
-import Card from "components/Card/Card.jsx";
-import CardBody from "components/Card/CardBody.jsx";
+import Paper from "@material-ui/core/Paper";
 import AddProjectModal from "components/myComponents/AddProjectModal";
 import TableHead from "@material-ui/core/TableHead";
 import TableBody from "@material-ui/core/TableBody";
@@ -14,16 +11,21 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 //core components
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
+import { IconButton, Table } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
+
+//TODO! set up routing to open a new screen for each project, not a modal
 
 class Projects extends React.Component {
   state = {
-    data: [],
     rows: []
   };
 
   componentDidMount() {
-    fetch("https://im-project-manager.appspot.com/api/projects")
-      .then(function(response) {
+    fetch("https://im-project-manager.appspot.com/api/projects", {
+      cors: "no-cors"
+    })
+      .then(response => {
         return response.json();
       })
       .then(myJson => {
@@ -33,6 +35,17 @@ class Projects extends React.Component {
       });
   }
 
+  doDelete = row => {
+    return fetch(
+      "https://im-project-manager.appspot.com/api/projects/" + row.id,
+      {
+        method: "delete"
+      }
+    ).then(response => response.json());
+  };
+
+  // update state and post new state, or do a delete request?
+
   render() {
     const { classes } = this.props;
     const tableHead = [
@@ -41,49 +54,53 @@ class Projects extends React.Component {
       "Status",
       "Start Date",
       "End Date",
-      "PM"
+      "PM",
+      "",
+      ""
     ];
     return (
-      <GridContainer>
-        <GridItem xs={12} sm={12} md={12}>
-          <Card>
-            <CardBody>
-              <TableHead>
-                <TableRow>
-                  {tableHead.map((prop, key) => {
-                    return (
-                      <TableCell
-                        className={
-                          classes.tableCell + " " + classes.tableHeadCell
-                        }
-                        key={key}
-                      >
-                        {prop}
-                      </TableCell>
-                    );
-                  })}
+      <Paper>
+        <Table>
+          <TableHead>
+            <TableRow>
+              {tableHead.map((prop, key) => {
+                return (
+                  <TableCell
+                    className={classes.tableCell + " " + classes.tableHeadCell}
+                    key={key}
+                  >
+                    {prop}
+                  </TableCell>
+                );
+              })}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {this.state.rows.map(row => {
+              return (
+                <TableRow key={row.id}>
+                  <TableCell>{row.id}</TableCell>
+                  <TableCell>{row.name}</TableCell>
+                  <TableCell>{row.status}</TableCell>
+                  <TableCell>{row.startDate}</TableCell>
+                  <TableCell>{row.endDate}</TableCell>
+                  <TableCell>{row.pm ? row.pm.name : null}</TableCell>
+                  <TableCell>
+                    <ProjectViewModal details={row} />
+                  </TableCell>
+
+                  <TableCell>
+                    <IconButton value={row} onClick={() => this.doDelete(row)}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
                 </TableRow>
-              </TableHead>
-              <TableBody>
-                {this.state.rows.map(row => {
-                  return (
-                    <TableRow key={row.id}>
-                      <TableCell>{row.id}</TableCell>
-                      <TableCell>{row.name}</TableCell>
-                      <TableCell>{row.status}</TableCell>
-                      <TableCell>{row.startDate}</TableCell>
-                      <TableCell>{row.endDate}</TableCell>
-                      <TableCell>{row.pm.name}</TableCell>
-                      <ProjectViewModal details={row} />
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-              <AddProjectModal />
-            </CardBody>
-          </Card>
-        </GridItem>
-      </GridContainer>
+              );
+            })}
+          </TableBody>
+        </Table>
+        <AddProjectModal />
+      </Paper>
     );
   }
 }
@@ -92,4 +109,5 @@ Projects.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(dashboardStyle)(Projects);
+const ProjectsPage = withStyles(dashboardStyle)(Projects);
+export default ProjectsPage;

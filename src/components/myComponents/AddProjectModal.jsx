@@ -1,12 +1,32 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import { TextField, Modal, Button } from "@material-ui/core";
+import {
+  FormControl,
+  Modal,
+  Button,
+  InputLabel,
+  Select,
+  MenuItem,
+  MenuList,
+  TextField
+} from "@material-ui/core";
+
+//Re-render after project is added or deleted
 
 const styles = theme => ({
+  root: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 120
+  },
   paper: {
     display: "flex",
     flexWrap: "wrap",
+    justifyContent: "space-between",
     width: theme.spacing.unit * 50,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
@@ -17,16 +37,37 @@ const styles = theme => ({
 class AddProjectModal extends React.Component {
   state = {
     open: false,
+    companies: [],
     projectData: {
       name: "",
-      companyId: null,
-      pmId: null,
+      companyId: "",
+      pmId: 0,
       startDate: "",
       endDate: "",
       status: "",
-      clientUserId: null
+      clientUserId: 0
     }
   };
+
+  getCompanies = () => {
+    fetch("https://im-project-manager.appspot.com/api/companies", {
+      cors: "no-cors"
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(myJson => {
+        console.log(myJson);
+        this.setState({
+          companies: myJson
+        });
+        console.log(this.state.companies);
+      });
+  };
+
+  componentDidMount() {
+    this.getCompanies();
+  }
 
   handleOpen = () => {
     this.setState({ open: true });
@@ -36,25 +77,12 @@ class AddProjectModal extends React.Component {
     this.setState({ open: false });
   };
 
-  handleInputChange = e => {
-    this.setState({ [e.target.name]: e.target.value }); //https://medium.com/@tmkelly28/handling-multiple-form-inputs-in-react-c5eb83755d15
-    console.log(this.state);
-  };
-
   doPost = () => {
-    const data = {
-      name: "Proiect 2",
-      companyId: 3,
-      pmId: 1,
-      startDate: "2018-11-01",
-      endDate: "2018-11-30",
-      status: "in-progress",
-      clientUserId: 2
-    };
-
+    this.handleClose();
+    let data = this.state.projectData;
+    console.log(data);
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
-
     const options = {
       method: "POST",
       headers,
@@ -67,6 +95,12 @@ class AddProjectModal extends React.Component {
     );
     const response = fetch(request);
     const status = response.status;
+  };
+
+  handleInputChange = e => {
+    let inputData = Object.assign({}, this.state.projectData);
+    inputData[e.target.name] = e.target.value;
+    this.setState({ projectData: inputData }); //https://medium.com/@tmkelly28/handling-multiple-form-inputs-in-react-c5eb83755d15
   };
 
   render() {
@@ -90,41 +124,86 @@ class AddProjectModal extends React.Component {
           onClose={this.handleClose}
         >
           <div className={classes.paper}>
-            <TextField
-              name="name"
-              placeholder="name"
-              onChange={this.handleInputChange}
-            />
-            <TextField
-              name="companyID"
-              placeholder="companyId"
-              onChange={this.handleInputChange}
-            />
-            <TextField
-              name="pmId"
-              placeholder="pmId"
-              onChange={this.handleInputChange}
-            />
-            <TextField
-              name="start date"
-              placeholder="start date"
-              onChange={this.handleInputChange}
-            />
-            <TextField
-              name="end date"
-              placeholder="end date"
-              onChange={this.handleInputChange}
-            />
-            <TextField
-              name="status"
-              placeholder="status"
-              onChange={this.handleInputChange}
-            />
-            <TextField
-              name="clientUserID"
-              placeholder="clientUserID"
-              onChange={this.handleInputChange}
-            />
+            <FormControl className={classes.formControl}>
+              <TextField
+                name="name"
+                placeholder="Project Name"
+                onChange={this.handleInputChange}
+              />
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <InputLabel>Company</InputLabel>
+              <Select
+                value={this.state.projectData.companyId}
+                onChange={this.handleInputChange}
+                name="companyId"
+              >
+                {this.state.companies.map((company, i) => {
+                  return (
+                    <MenuList key={i} value={company.id}>
+                      <MenuItem>{company.name}</MenuItem>
+                    </MenuList>
+                  );
+                })}
+              </Select>
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <InputLabel>PM</InputLabel>
+              <Select
+                value={this.state.projectData.pmId}
+                onChange={this.handleInputChange}
+                name="pmId"
+              >
+                <MenuItem value={1}>Tudor</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <InputLabel>Status</InputLabel>
+              <Select onChange={this.handleInputChange} name="status">
+                <MenuItem value={"in-progress"}>in-progress</MenuItem>
+                <MenuItem value={"pending"}>pending</MenuItem>
+                <MenuItem value={"done"}>done</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <InputLabel>Client</InputLabel>
+              <Select
+                value={this.state.projectData.clientUserId}
+                onChange={this.handleInputChange}
+                name="clientUserId"
+              >
+                <MenuItem value={1}>Client 1</MenuItem>
+                <MenuItem value={2}>Client 2</MenuItem>
+                <MenuItem value={3}>Client 3</MenuItem>
+              </Select>
+            </FormControl>
+
+            <FormControl className={classes.formControl}>
+              <TextField
+                name="startDate"
+                onChange={this.handleInputChange}
+                label="Start Date"
+                type="date"
+                defaultValue="2017-05-24"
+                className={classes.textField}
+                InputLabelProps={{
+                  shrink: true
+                }}
+              />
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <TextField
+                name="endDate"
+                onChange={this.handleInputChange}
+                label="End Date"
+                type="date"
+                defaultValue="2017-05-24"
+                className={classes.textField}
+                InputLabelProps={{
+                  shrink: true
+                }}
+              />
+            </FormControl>
             <Button variant="contained" color="primary" onClick={this.doPost}>
               Add
             </Button>
@@ -136,7 +215,7 @@ class AddProjectModal extends React.Component {
 }
 
 AddProjectModal.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object
 };
 
 // We need an intermediary variable for handling the recursive nesting.

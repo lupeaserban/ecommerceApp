@@ -9,6 +9,7 @@ import Account from "views/Account/Account.jsx";
 import Projects from "views/Projects/Projects.jsx";
 import Login from "views/Login/Login.jsx";
 import Clients from "views/Clients/Clients.jsx";
+import Client from "views/Clients/Client.jsx";
 import Organizer from "views/Organizer/Organizer.jsx";
 import Maps from "views/Maps/Maps.jsx";
 import Notifications from "views/Notifications/Notifications";
@@ -37,12 +38,20 @@ const dashboardRoutes = [
     invisible: true
   },
   {
+    path: "/clients/:name",
+    sidebarName: "Organizer",
+    navbarName: "Organizer",
+    icon: "content_paste",
+    component: Client
+  },
+  {
     path: "/clients",
     sidebarName: "Clients",
     navbarName: "Clients",
     icon: BubbleChart,
     component: Clients
   },
+
   {
     path: "/organizer",
     sidebarName: "Organizer",

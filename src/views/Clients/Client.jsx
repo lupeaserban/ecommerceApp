@@ -6,12 +6,11 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 const styles = {};
 
-function Client(props) {
-  return <div>I am {props.id}</div>;
+class Client extends React.Component {
+  render() {
+    console.log(this.props);
+    return <div>i am {this.props.match.params.name}</div>;
+  }
 }
-
-Client.propTypes = {
-  id: PropTypes.string.isRequired
-};
 
 export default withStyles(styles)(Client);
