@@ -39,10 +39,9 @@ const dashboardRoutes = [
   },
   {
     path: "/clients/:name",
-    sidebarName: "Organizer",
-    navbarName: "Organizer",
     icon: "content_paste",
-    component: Client
+    component: Client,
+    invisible: true
   },
   {
     path: "/clients",
