@@ -8,9 +8,8 @@ import Notification from "@material-ui/icons/NotificationImportant";
 import Account from "views/Account/Account.jsx";
 import Projects from "views/Projects/Projects.jsx";
 import Login from "views/Login/Login.jsx";
-import Clients from "views/Clients/Clients.jsx";
-import Client from "views/Clients/Client.jsx";
-import Organizer from "views/Organizer/Organizer.jsx";
+import Users from "views/Users/Users.jsx";
+import Client from "views/Users/Client.jsx";
 import Maps from "views/Maps/Maps.jsx";
 import Notifications from "views/Notifications/Notifications";
 
@@ -38,25 +37,17 @@ const dashboardRoutes = [
     invisible: true
   },
   {
-    path: "/clients/:name",
+    path: "/Users/:name",
     icon: "content_paste",
     component: Client,
     invisible: true
   },
   {
-    path: "/clients",
-    sidebarName: "Clients",
-    navbarName: "Clients",
+    path: "/Users",
+    sidebarName: "Users",
+    navbarName: "Users",
     icon: BubbleChart,
-    component: Clients
-  },
-
-  {
-    path: "/organizer",
-    sidebarName: "Organizer",
-    navbarName: "Organizer",
-    icon: "content_paste",
-    component: Organizer
+    component: Users
   },
   {
     path: "/notifications",

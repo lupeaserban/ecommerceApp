@@ -49,13 +49,12 @@ class Projects extends React.Component {
   render() {
     const { classes } = this.props;
     const tableHead = [
-      "ID",
-      "Project Name",
+      "Name",
       "Status",
       "Start Date",
       "End Date",
       "PM",
-      "",
+      "Events",
       ""
     ];
     return (
@@ -66,6 +65,7 @@ class Projects extends React.Component {
               {tableHead.map((prop, key) => {
                 return (
                   <TableCell
+                    style={{ fontWeight: "bold", fontSize: "75%" }}
                     className={classes.tableCell + " " + classes.tableHeadCell}
                     key={key}
                   >
@@ -74,12 +74,14 @@ class Projects extends React.Component {
                 );
               })}
             </TableRow>
+            <TableCell>
+              <AddProjectModal />
+            </TableCell>
           </TableHead>
           <TableBody>
             {this.state.rows.map(row => {
               return (
                 <TableRow key={row.id}>
-                  <TableCell>{row.id}</TableCell>
                   <TableCell>{row.name}</TableCell>
                   <TableCell>{row.status}</TableCell>
                   <TableCell>{row.startDate}</TableCell>
@@ -99,7 +101,6 @@ class Projects extends React.Component {
             })}
           </TableBody>
         </Table>
-        <AddProjectModal />
       </Paper>
     );
   }

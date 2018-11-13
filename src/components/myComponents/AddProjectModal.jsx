@@ -109,12 +109,12 @@ class AddProjectModal extends React.Component {
     return (
       <div>
         <Button
-          variant="contained"
+          variant="flat"
           color="primary"
           size="small"
           onClick={this.handleOpen}
         >
-          +
+          New Project
         </Button>
         <Modal
           style={{ paddingLeft: "40%", paddingTop: "10%" }}
