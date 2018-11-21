@@ -21,16 +21,18 @@ const styles = theme => ({
   },
   formControl: {
     margin: theme.spacing.unit,
-    minWidth: 120
+    minWidth: "80%"
   },
   paper: {
+    padding: "2%",
     display: "flex",
+    flexDirection: "column",
     flexWrap: "wrap",
     justifyContent: "space-between",
-    width: theme.spacing.unit * 50,
+
+    width: "75%",
     backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4
+    boxShadow: theme.shadows[5]
   }
 });
 
@@ -57,11 +59,10 @@ class AddProjectModal extends React.Component {
         return response.json();
       })
       .then(myJson => {
-        console.log(myJson);
         this.setState({
           companies: myJson
         });
-        console.log(this.state.companies);
+        // console.log(this.state.companies);
       });
   };
 
@@ -80,7 +81,7 @@ class AddProjectModal extends React.Component {
   doPost = () => {
     this.handleClose();
     let data = this.state.projectData;
-    console.log(data);
+    // console.log(data);
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
     const options = {
@@ -93,8 +94,7 @@ class AddProjectModal extends React.Component {
       "https://im-project-manager.appspot.com/api/projects",
       options
     );
-    const response = fetch(request);
-    const status = response.status;
+    fetch(request);
   };
 
   handleInputChange = e => {
@@ -193,6 +193,7 @@ class AddProjectModal extends React.Component {
             </FormControl>
             <FormControl className={classes.formControl}>
               <TextField
+                margin="normal"
                 name="endDate"
                 onChange={this.handleInputChange}
                 label="End Date"
@@ -204,8 +205,14 @@ class AddProjectModal extends React.Component {
                 }}
               />
             </FormControl>
-            <Button variant="contained" color="primary" onClick={this.doPost}>
-              Add
+
+            <Button
+              style={{ width: "20%", marginLeft: "40%" }}
+              variant="contained"
+              color="primary"
+              onClick={this.doPost}
+            >
+              CREATE
             </Button>
           </div>
         </Modal>

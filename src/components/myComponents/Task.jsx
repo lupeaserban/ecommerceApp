@@ -6,23 +6,21 @@ export default class Task extends React.Component {
     return (
       <div
         style={{
-          display: "flex",
-          justifyContent: "flex-start",
-          alignItems: "center",
+          paddingLeft: "25px",
           borderStyle: "solid",
-          borderColor: "white",
-          borderWidth: "1px",
+          borderWidth: "0px 0px 0px 5px",
+          marginTop: "5px",
+          marginBottom: "5px",
           height: "40px",
           width: "auto",
-          background: "salmon",
-          textAlign: "center"
+          borderColor: "#D0F0C0"
         }}
       >
         <div>
-          <Checkbox color="primary" />
           <b>{this.props.name}</b>
           {this.props.priority}
           {this.props.dueDate}
+          <Checkbox color="primary" />
         </div>
       </div>
     );

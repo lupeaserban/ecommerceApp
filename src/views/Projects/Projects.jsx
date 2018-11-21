@@ -1,17 +1,24 @@
 import React from "react";
+import { Link, Route } from "react-router-dom";
 import PropTypes from "prop-types";
-import ProjectViewModal from "components/myComponents/ProjectViewModal";
+import Project from "views/Projects/Project.jsx";
+import EditProjectModal from "views/Projects/EditProjectModal";
+import AddProjectModal from "views/Projects/AddProjectModal";
 // @material-ui/core
+
 import withStyles from "@material-ui/core/styles/withStyles";
-import Paper from "@material-ui/core/Paper";
-import AddProjectModal from "components/myComponents/AddProjectModal";
+
 import TableHead from "@material-ui/core/TableHead";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
+import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
 //core components
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
-import { IconButton, Table } from "@material-ui/core";
+import { IconButton, Table, Card } from "@material-ui/core";
+import CardBody from "components/Card/CardBody.jsx";
+import CardHeader from "components/Card/CardHeader.jsx";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 //TODO! set up routing to open a new screen for each project, not a modal
@@ -57,51 +64,75 @@ class Projects extends React.Component {
       "Events",
       ""
     ];
+    // console.log(this.state.rows);
     return (
-      <Paper>
-        <Table>
-          <TableHead>
-            <TableRow>
-              {tableHead.map((prop, key) => {
+      <Card>
+        <CardHeader>
+          <Paper>
+            <AddProjectModal />
+          </Paper>
+        </CardHeader>
+        <CardBody>
+          <Table>
+            <TableHead>
+              <TableRow>
+                {tableHead.map((prop, key) => {
+                  return (
+                    <TableCell
+                      style={{
+                        backgroundColor: "info",
+                        fontWeight: "bold",
+                        fontSize: "75%"
+                      }}
+                      className={
+                        classes.tableCell + " " + classes.tableHeadCell
+                      }
+                      key={key}
+                    >
+                      {prop}
+                    </TableCell>
+                  );
+                })}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {this.state.rows.map(row => {
                 return (
-                  <TableCell
-                    style={{ fontWeight: "bold", fontSize: "75%" }}
-                    className={classes.tableCell + " " + classes.tableHeadCell}
-                    key={key}
-                  >
-                    {prop}
-                  </TableCell>
+                  <TableRow key={row.id}>
+                    <TableCell>{row.name}</TableCell>
+                    <TableCell>{row.status}</TableCell>
+                    <TableCell>{row.startDate}</TableCell>
+                    <TableCell>{row.endDate}</TableCell>
+                    <TableCell>{row.pm ? row.pm.name : null}</TableCell>
+                    <TableCell>
+                      <Link to={`/projects/${row.id}`}>
+                        <Button variant="contained" color="primary">
+                          View
+                        </Button>
+                      </Link>
+                      <Route
+                        path={"/projects/:id"}
+                        render={props => <Project {...props} test={"hi"} />}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <IconButton>
+                        <EditProjectModal project={row} />
+                      </IconButton>
+                      <IconButton
+                        value={row}
+                        onClick={() => this.doDelete(row)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
                 );
               })}
-            </TableRow>
-            <TableCell>
-              <AddProjectModal />
-            </TableCell>
-          </TableHead>
-          <TableBody>
-            {this.state.rows.map(row => {
-              return (
-                <TableRow key={row.id}>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.status}</TableCell>
-                  <TableCell>{row.startDate}</TableCell>
-                  <TableCell>{row.endDate}</TableCell>
-                  <TableCell>{row.pm ? row.pm.name : null}</TableCell>
-                  <TableCell>
-                    <ProjectViewModal details={row} />
-                  </TableCell>
-
-                  <TableCell>
-                    <IconButton value={row} onClick={() => this.doDelete(row)}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </Paper>
+            </TableBody>
+          </Table>
+        </CardBody>
+      </Card>
     );
   }
 }

@@ -7,6 +7,8 @@ import Notification from "@material-ui/icons/NotificationImportant";
 // core components/views
 import Account from "views/Account/Account.jsx";
 import Projects from "views/Projects/Projects.jsx";
+import Project from "views/Projects/Project.jsx";
+
 import Login from "views/Login/Login.jsx";
 import Users from "views/Users/Users.jsx";
 import Client from "views/Users/Client.jsx";
@@ -20,6 +22,14 @@ const dashboardRoutes = [
     navbarName: "My Account",
     icon: Person,
     component: Account
+  },
+  {
+    path: "/projects/:id",
+    icon: "Projects",
+    navbarName: "Timeline",
+    component: Project,
+    invisible: true,
+    noSidebar: true
   },
   {
     path: "/projects",
@@ -37,7 +47,7 @@ const dashboardRoutes = [
     invisible: true
   },
   {
-    path: "/Users/:name",
+    path: "/Users/:id",
     icon: "content_paste",
     component: Client,
     invisible: true

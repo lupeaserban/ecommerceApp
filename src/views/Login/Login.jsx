@@ -31,6 +31,7 @@ class Login extends React.Component {
   goHome = () => {
     this.props.history.push("/account");
   };
+
   render() {
     const { classes } = this.props;
     return (

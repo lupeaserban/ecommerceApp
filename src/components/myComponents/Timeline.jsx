@@ -1,14 +1,16 @@
 import React from "react";
-import { Button } from "@material-ui/core";
+import { Button, Card } from "@material-ui/core";
 import Add from "@material-ui/icons/Add";
 import Meeting from "components/myComponents/Meeting.jsx";
 import Task from "components/myComponents/Task.jsx";
 import SimpleDialog from "components/myComponents/Dialog.jsx";
 import Milestone from "components/myComponents/Milestone.jsx";
+import withStyles from "@material-ui/core/styles/withStyles";
+import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 
 const eventType = ["TASK", "MEETING", "MILESTONE"];
 
-export default class Timeline extends React.Component {
+class Timeline extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -178,7 +180,7 @@ export default class Timeline extends React.Component {
 
   render() {
     return (
-      <div>
+      <Card>
         <div
           style={{
             display: "flex",
@@ -187,9 +189,9 @@ export default class Timeline extends React.Component {
           }}
         >
           <b>Timeline</b>
-          <hr />
 
           <hr />
+
           <Button onClick={this.handleClickOpen}>
             <Add />
           </Button>
@@ -202,7 +204,9 @@ export default class Timeline extends React.Component {
         </div>
         <div>{this.displayEvent()}</div>
         <div>{this.displayApiEvents()}</div>
-      </div>
+      </Card>
     );
   }
 }
+
+export default withStyles(dashboardStyle)(Timeline);

@@ -1,25 +1,21 @@
 import React from "react";
+import { Grid } from "@material-ui/core";
 
 export default class Milestone extends React.Component {
   render() {
     return (
-      <div
+      <Grid
+        container
         style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          borderStyle: "solid",
-          borderColor: "white",
-          borderWidth: "1px",
-          height: "50px",
-          width: "auto",
-          background: "#F8DE7E"
+          marginTop: "5px",
+          marginBottom: "5px",
+          backgroundColor: "#F8DE7E"
         }}
       >
-        <b>MILESTONE X REACHED! </b>
-        {this.props.name}
-        {this.props.dueDate}
-      </div>
+        <b style={{ textAlign: "center" }}>
+          MILESTONE {this.props.name} WAS REACHED ON {this.props.dueDate}{" "}
+        </b>
+      </Grid>
     );
   }
 }

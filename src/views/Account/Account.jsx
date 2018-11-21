@@ -1,18 +1,15 @@
 import React from "react";
 // @material-ui/core components
+import EditAccountModal from "views/Account/EditAccountModal.jsx";
 import Active from "@material-ui/icons/CheckCircle";
+import { Tooltip } from "@material-ui/core";
 
-const style = {
-  img: {
-    width: "20%"
-  }
-};
-
-export default class Account extends React.Component {
+class Account extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      account: []
+      open: false,
+      account: {}
     };
   }
 
@@ -25,7 +22,7 @@ export default class Account extends React.Component {
       })
       .then(myJson => {
         this.setState({
-          account: myJson[1]
+          account: myJson[1] // show account of the person whos logged in
         });
         console.log(this.state.account);
       });
@@ -39,25 +36,40 @@ export default class Account extends React.Component {
     return this.state.account.status === "active";
   };
 
+  openEditModal = () => {
+    this.setState({ open: true });
+  };
+
   render() {
-    const { classes } = this.props;
     const { name, email, photo, jobTitle, telephone } = this.state.account;
     return (
       <div>
         <img
+          alt=""
           style={{
             width: "20%"
           }}
           src={photo}
         />
+
         <div>{name}</div>
+
         <div>{jobTitle}</div>
         <div>{email}</div>
         <div>{telephone}</div>
-        <div>
-          {this.getStatus() ? <Active style={{ color: "green" }} /> : <div />}`
-        </div>
+        {this.getStatus() ? (
+          <Tooltip title="online" placement="right">
+            <Active style={{ color: "green" }} />
+          </Tooltip>
+        ) : (
+          <Tooltip title="offline" placement="right">
+            <Active style={{ color: "green" }} />
+          </Tooltip>
+        )}
+        <EditAccountModal accountInfo={this.state.account} />
       </div>
     );
   }
 }
+
+export default Account;

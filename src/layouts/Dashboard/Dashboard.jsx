@@ -44,6 +44,12 @@ class App extends React.Component {
   getLoginRoute = () => {
     return this.props.location.pathname === "/login";
   };
+
+  // getProjectRoute = () => {
+  //   let route = dashboardRoutes.map(prop => prop.noSidebar === true);
+  //   return route;
+  // };
+
   resizeFunction() {
     if (window.innerWidth >= 960) {
       this.setState({ mobileOpen: false });
@@ -69,6 +75,7 @@ class App extends React.Component {
   }
   render() {
     const { classes, ...rest } = this.props;
+    console.log(this.getLoginRoute());
     return (
       <div className={classes.wrapper}>
         {/* On the /login route we dont want to show the sidebar  */}
