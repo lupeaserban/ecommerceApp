@@ -114,7 +114,7 @@ class AddProjectModal extends React.Component {
           size="small"
           onClick={this.handleOpen}
         >
-          New Project
+          New Project..
         </Button>
         <Modal
           style={{ paddingLeft: "40%", paddingTop: "10%" }}

@@ -12,6 +12,7 @@ export default class Milestone extends React.Component {
           backgroundColor: "#F8DE7E"
         }}
       >
+        {" "}
         <b style={{ textAlign: "center" }}>
           MILESTONE {this.props.name} WAS REACHED ON {this.props.dueDate}{" "}
         </b>

@@ -1,11 +1,13 @@
 import React from "react";
 import { withRouter } from "react-router";
-import Meeting from "components/myComponents/Meeting.jsx";
-import Task from "components/myComponents/Task.jsx";
-import SimpleDialog from "components/myComponents/Dialog.jsx";
-import Milestone from "components/myComponents/Milestone.jsx";
 
-import AddEventModal from "views/Projects/AddEventModal.jsx";
+import SimpleDialog from "components/myComponents/Dialog.jsx";
+import Milestone from "views/Projects/Events/Milestone.jsx";
+import Meeting from "views/Projects/Events/Meeting.jsx";
+import Task from "views/Projects/Events/Task.jsx";
+import AddEventModal from "views/Projects/Events/AddEventModal.jsx";
+import EditEventModal from "views/Projects/Events/EditEventModal.jsx";
+import DeleteIcon from "@material-ui/icons/Delete";
 import {
   Button,
   TableCell,
@@ -13,7 +15,8 @@ import {
   Paper,
   Table,
   TableBody,
-  Grid
+  Grid,
+  IconButton
 } from "@material-ui/core";
 import CardBody from "components/Card/CardBody.jsx";
 import Card from "components/Card/Card.jsx";
@@ -22,20 +25,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 const eventType = ["TASK", "MEETING", "MILESTONE"];
 
-const styles = {
-  paperblock: {
-    backgroundColor: "#60d4ee",
-    margin: "2%",
-    padding: "1%",
-    textAlign: "center",
-    color: "black",
-    width: "20%",
-    height: "auto"
-  },
-  ribbon: {
-    width: "auto"
-  }
-};
+const styles = {};
 
 class ProjectPage extends React.Component {
   constructor(props) {
@@ -64,44 +54,73 @@ class ProjectPage extends React.Component {
       });
   };
 
+  doDelete = () => {};
+
   //display the events coming from the API
   displayApiEvents = () => {
     //loop through the array and identify the type
     //based on the type render a component passing down props
     return (
-      <div>
-        <ul style={{ listStyle: "none", paddingLeft: "0px" }}>
+      <Table>
+        <TableBody style={{ listStyle: "none", paddingLeft: "0px" }}>
           {this.state.apiEvents.map((item, i) => {
             if (item.type === "task") {
               return (
-                <li key={i}>
-                  {" "}
-                  <Task
-                    name={item.title}
-                    priority={item.priority}
-                    dueDate={item.dueDate}
-                  />
-                </li>
+                <TableRow key={i}>
+                  <TableCell>
+                    <Task
+                      name={item.title}
+                      priority={item.priority}
+                      dueDate={item.dueDate}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <EditEventModal />
+                  </TableCell>
+                  <TableCell>
+                    <IconButton onClick={this.doDelete()}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
               );
             } else if (item.type === "meeting") {
               return (
-                <li key={i}>
-                  {" "}
-                  <Meeting name={item.title} dueDate={item.dueDate} />{" "}
-                </li>
+                <TableRow key={i}>
+                  <TableCell>
+                    <Meeting name={item.title} dueDate={item.dueDate} />
+                  </TableCell>
+                  <TableCell>
+                    <EditEventModal />
+                  </TableCell>
+                  <TableCell>
+                    <IconButton onClick={this.doDelete()}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
               );
             } else if (item.type === "milestone") {
               return (
-                <li key={i}>
-                  {" "}
-                  <Milestone name={item.title} dueDate={item.dueDate} />{" "}
-                </li>
+                <TableRow key={i}>
+                  <TableCell>
+                    <Milestone name={item.title} dueDate={item.dueDate} />
+                  </TableCell>
+                  <TableCell>
+                    <EditEventModal />
+                  </TableCell>
+                  <TableCell>
+                    <IconButton onClick={this.doDelete()}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
               );
             }
             return null;
           })}
-        </ul>
-      </div>
+        </TableBody>
+      </Table>
     );
   };
 
@@ -232,19 +251,21 @@ class ProjectPage extends React.Component {
                 </Grid>
               </Grid>
             </Paper>
+            <br />
+            <br />
+            <Table>
+              <TableBody>
+                <TableRow justify="space-evenly">
+                  <TableCell>{project.status}</TableCell>
+                  <TableCell>{project.company.name}</TableCell>
+                  <TableCell>{project.pm.name}</TableCell>
+                  <TableCell>{project.pm.company.name}</TableCell>
+                  <TableCell>{project.startDate}</TableCell>
+                  <TableCell>{project.endDate}</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
           </CardHeader>
-          <Table>
-            <TableBody>
-              <TableRow justify="space-evenly">
-                <TableCell>{project.status}</TableCell>
-                <TableCell>{project.company.name}</TableCell>
-                <TableCell>{project.pm.name}</TableCell>
-                <TableCell>{project.pm.company.name}</TableCell>
-                <TableCell>{project.startDate}</TableCell>
-                <TableCell>{project.endDate}</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
           <SimpleDialog
             events={eventType}
             selectedValue={this.state.selectedValue}

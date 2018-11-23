@@ -62,7 +62,7 @@ class Projects extends React.Component {
       "End Date",
       "PM",
       "Events",
-      ""
+      "Actions"
     ];
     // console.log(this.state.rows);
     return (

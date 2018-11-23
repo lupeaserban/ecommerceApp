@@ -23,12 +23,6 @@ export default class Meeting extends React.Component {
         <Grid item xs={12}>
           {this.props.dueDate}
         </Grid>
-        <IconButton variant="text" size="medium">
-          <Edit />
-        </IconButton>
-        <IconButton variant="text" size="small">
-          <DeleteIcon />
-        </IconButton>
       </Grid>
     );
   }
