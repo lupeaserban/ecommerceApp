@@ -1,6 +1,20 @@
 import React from "react";
 import Active from "@material-ui/icons/CheckCircle";
-import { Tooltip } from "@material-ui/core";
+import { Tooltip, TableRow } from "@material-ui/core";
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+
+import TableBody from "@material-ui/core/TableBody"
+
+const QUERY = gql`
+  query QUERY {
+    users {
+      name
+      email
+      id
+    }
+  }
+`;
 
 export default class Client extends React.Component {
   constructor(props) {
@@ -39,6 +53,14 @@ export default class Client extends React.Component {
     const { name, email, photo, jobTitle, telephone } = this.state.client; //looking for test prop sent from Users, the parent component
     return (
       <div>
+        <Query query={QUERY}>
+          {({data, error, loading}) => {
+            console.log(data)
+            if(loading) return <p>Loading..</p>
+            if(error) return <p>Error: {error.message}</p>
+            return <TableBody>{data.users.map(user => <p> {user.name}</p> )}</TableBody>;
+          }}
+        </Query>
         <img
           alt=""
           style={{

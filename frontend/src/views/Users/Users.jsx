@@ -1,10 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link, Route } from "react-router-dom";
-
 import Active from "@material-ui/icons/CheckCircle";
 import DeleteIcon from "@material-ui/icons/Delete";
-
 // @material-ui/core
 import withStyles from "@material-ui/core/styles/withStyles";
 import {
@@ -16,7 +14,8 @@ import {
   TableHead,
   TableBody,
   Paper,
-  Tooltip
+  Tooltip,
+  Tab
 } from "@material-ui/core";
 //core components
 import CardHeader from "components/Card/CardHeader.jsx";
@@ -25,6 +24,20 @@ import AddUserModal from "views/Users/AddUserModal.jsx";
 import EditUserModal from "views/Users/EditUserModal.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import Client from "./Client";
+
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+
+const QUERY = gql`
+  query QUERY {
+    users {
+      name
+      email
+      id
+    }
+  }
+`;
+
 
 class Users extends React.Component {
   constructor(props) {
@@ -95,44 +108,24 @@ class Users extends React.Component {
                 })}
               </TableRow>
             </TableHead>
-            <TableBody>
-              {users.map((user, i) => {
+            <Query query={QUERY}>
+              {({data, error, loading}) => {
+                 console.log(data)
+                if(loading) return <p>Loading..</p>
+                if(error) return <p>Error: {error.message}</p>
                 return (
-                  <TableRow key={i}>
-                    <TableCell>
-                      <Link to={`/Users/${user.id}`}>{user.name}</Link>
-                      <Route
-                        path={`/Users/${user.id}`}
-                        render={props => <Client {...props} test={"hi"} />}
-                      />
-                    </TableCell>
-                    <TableCell>{user.jobTitle}</TableCell>
-                    <TableCell>{user.company.name}</TableCell>
-                    <TableCell>
-                      {this.getStatus(user.status) ? (
-                        <Tooltip title="online" placement="right">
-                          <Active style={{ color: "green" }} />
-                        </Tooltip>
-                      ) : (
-                        <Tooltip title="offline" placement="right">
-                          <Active style={{ color: "red" }} />
-                        </Tooltip>
-                      )}
-                    </TableCell>
-                    <TableCell>{user.email}</TableCell>
-
-                    <TableCell>
-                      <IconButton>
-                        <EditUserModal />
-                      </IconButton>
-                      <IconButton onClick={this.doDelete()}>
-                        <DeleteIcon />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
+                  <TableBody>
+                  {data.users.map(user => 
+                    <TableRow key={user.id}> 
+                        <TableCell>{user.name}</TableCell>
+                        <TableCell>{user.jobTitle}</TableCell>
+                        <TableCell>{user.email}</TableCell>
+            
+                    </TableRow> 
+                    )}
+                </TableBody>
+                )}}
+           </Query>
           </Table>
         </CardBody>
       </Card>

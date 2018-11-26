@@ -1,5 +1,30 @@
 type User {
   id: ID! @unique
-  name: String!
-  email: String!
+  email: String
+  password: String
+  online: Boolean
+  status: Boolean
+  photo: String
+  name: String
+  jobTitle: String
+  telephone: String
+  nickname: String  
+}
+
+type UserRole {
+  id: ID! @unique
+  name: String
+}
+
+type Company {
+  id: ID! @unique
+  name: String
+  legalName: String
+  countryId: String
+  regNo: String
+  address: String
+  email: String
+  country: String
+  county: String
+  city: String
 }

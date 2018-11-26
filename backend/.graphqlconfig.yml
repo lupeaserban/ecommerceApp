@@ -2,7 +2,7 @@ projects:
   app:
     schemaPath: "src/schema.graphql"
     extensions:
-      endpoints:
+      endpoints: 
         default: "http://localhost:4444"
   prisma:
     schemaPath: "src/generated/prisma.graphql"
