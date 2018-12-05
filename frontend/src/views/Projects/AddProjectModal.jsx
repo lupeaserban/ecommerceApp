@@ -28,7 +28,7 @@ const styles = theme => ({
     display: "flex",
     flexDirection: "column",
     flexWrap: "wrap",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
 
     width: "75%",
     backgroundColor: theme.palette.background.paper,

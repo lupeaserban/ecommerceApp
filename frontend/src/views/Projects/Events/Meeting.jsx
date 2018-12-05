@@ -1,7 +1,7 @@
 import React from "react";
-import { Grid, IconButton } from "@material-ui/core";
-import Edit from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
+import { Grid  } from "@material-ui/core";
+// import Edit from "@material-ui/icons/Edit";
+// import DeleteIcon from "@material-ui/icons/Delete";
 
 export default class Meeting extends React.Component {
   render() {

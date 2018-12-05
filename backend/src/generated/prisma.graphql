@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/serban/proj-manag/dev
-# timestamp: Mon Nov 26 2018 13:55:54 GMT+0200 (EET)
+# timestamp: Tue Nov 27 2018 21:42:53 GMT+0200 (EET)
 
 type AggregateCompany {
   count: Int!
@@ -20,7 +20,7 @@ type BatchPayload {
 
 type Company implements Node {
   id: ID!
-  name: String
+  name: String!
   legalName: String
   countryId: String
   regNo: String
@@ -42,7 +42,7 @@ type CompanyConnection {
 }
 
 input CompanyCreateInput {
-  name: String
+  name: String!
   legalName: String
   countryId: String
   regNo: String
@@ -91,7 +91,7 @@ enum CompanyOrderByInput {
 
 type CompanyPreviousValues {
   id: ID!
-  name: String
+  name: String!
   legalName: String
   countryId: String
   regNo: String
@@ -661,14 +661,10 @@ type Subscription {
 type User implements Node {
   id: ID!
   email: String
-  password: String
-  online: Boolean
-  status: Boolean
-  photo: String
   name: String
   jobTitle: String
   telephone: String
-  nickname: String
+  image: String
 }
 
 """A connection to a list of items."""
@@ -683,14 +679,10 @@ type UserConnection {
 
 input UserCreateInput {
   email: String
-  password: String
-  online: Boolean
-  status: Boolean
-  photo: String
   name: String
   jobTitle: String
   telephone: String
-  nickname: String
+  image: String
 }
 
 """An edge in a connection."""
@@ -707,22 +699,14 @@ enum UserOrderByInput {
   id_DESC
   email_ASC
   email_DESC
-  password_ASC
-  password_DESC
-  online_ASC
-  online_DESC
-  status_ASC
-  status_DESC
-  photo_ASC
-  photo_DESC
   name_ASC
   name_DESC
   jobTitle_ASC
   jobTitle_DESC
   telephone_ASC
   telephone_DESC
-  nickname_ASC
-  nickname_DESC
+  image_ASC
+  image_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -732,14 +716,10 @@ enum UserOrderByInput {
 type UserPreviousValues {
   id: ID!
   email: String
-  password: String
-  online: Boolean
-  status: Boolean
-  photo: String
   name: String
   jobTitle: String
   telephone: String
-  nickname: String
+  image: String
 }
 
 type UserRole implements Node {
@@ -969,26 +949,18 @@ input UserSubscriptionWhereInput {
 
 input UserUpdateInput {
   email: String
-  password: String
-  online: Boolean
-  status: Boolean
-  photo: String
   name: String
   jobTitle: String
   telephone: String
-  nickname: String
+  image: String
 }
 
 input UserUpdateManyMutationInput {
   email: String
-  password: String
-  online: Boolean
-  status: Boolean
-  photo: String
   name: String
   jobTitle: String
   telephone: String
-  nickname: String
+  image: String
 }
 
 input UserWhereInput {
@@ -1080,94 +1052,6 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   email_not_ends_with: String
-  password: String
-
-  """All values that are not equal to given value."""
-  password_not: String
-
-  """All values that are contained in given list."""
-  password_in: [String!]
-
-  """All values that are not contained in given list."""
-  password_not_in: [String!]
-
-  """All values less than the given value."""
-  password_lt: String
-
-  """All values less than or equal the given value."""
-  password_lte: String
-
-  """All values greater than the given value."""
-  password_gt: String
-
-  """All values greater than or equal the given value."""
-  password_gte: String
-
-  """All values containing the given string."""
-  password_contains: String
-
-  """All values not containing the given string."""
-  password_not_contains: String
-
-  """All values starting with the given string."""
-  password_starts_with: String
-
-  """All values not starting with the given string."""
-  password_not_starts_with: String
-
-  """All values ending with the given string."""
-  password_ends_with: String
-
-  """All values not ending with the given string."""
-  password_not_ends_with: String
-  online: Boolean
-
-  """All values that are not equal to given value."""
-  online_not: Boolean
-  status: Boolean
-
-  """All values that are not equal to given value."""
-  status_not: Boolean
-  photo: String
-
-  """All values that are not equal to given value."""
-  photo_not: String
-
-  """All values that are contained in given list."""
-  photo_in: [String!]
-
-  """All values that are not contained in given list."""
-  photo_not_in: [String!]
-
-  """All values less than the given value."""
-  photo_lt: String
-
-  """All values less than or equal the given value."""
-  photo_lte: String
-
-  """All values greater than the given value."""
-  photo_gt: String
-
-  """All values greater than or equal the given value."""
-  photo_gte: String
-
-  """All values containing the given string."""
-  photo_contains: String
-
-  """All values not containing the given string."""
-  photo_not_contains: String
-
-  """All values starting with the given string."""
-  photo_starts_with: String
-
-  """All values not starting with the given string."""
-  photo_not_starts_with: String
-
-  """All values ending with the given string."""
-  photo_ends_with: String
-
-  """All values not ending with the given string."""
-  photo_not_ends_with: String
   name: String
 
   """All values that are not equal to given value."""
@@ -1288,46 +1172,46 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   telephone_not_ends_with: String
-  nickname: String
+  image: String
 
   """All values that are not equal to given value."""
-  nickname_not: String
+  image_not: String
 
   """All values that are contained in given list."""
-  nickname_in: [String!]
+  image_in: [String!]
 
   """All values that are not contained in given list."""
-  nickname_not_in: [String!]
+  image_not_in: [String!]
 
   """All values less than the given value."""
-  nickname_lt: String
+  image_lt: String
 
   """All values less than or equal the given value."""
-  nickname_lte: String
+  image_lte: String
 
   """All values greater than the given value."""
-  nickname_gt: String
+  image_gt: String
 
   """All values greater than or equal the given value."""
-  nickname_gte: String
+  image_gte: String
 
   """All values containing the given string."""
-  nickname_contains: String
+  image_contains: String
 
   """All values not containing the given string."""
-  nickname_not_contains: String
+  image_not_contains: String
 
   """All values starting with the given string."""
-  nickname_starts_with: String
+  image_starts_with: String
 
   """All values not starting with the given string."""
-  nickname_not_starts_with: String
+  image_not_starts_with: String
 
   """All values ending with the given string."""
-  nickname_ends_with: String
+  image_ends_with: String
 
   """All values not ending with the given string."""
-  nickname_not_ends_with: String
+  image_not_ends_with: String
 }
 
 input UserWhereUniqueInput {

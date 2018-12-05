@@ -9,9 +9,13 @@ import Account from "views/Account/Account.jsx";
 import Projects from "views/Projects/Projects.jsx";
 import Project from "views/Projects/Project.jsx";
 
+import UpdateUser  from "views/Users/UpdateUser.jsx"
+import CreateUser  from "views/Users/CreateUser.jsx"
+
+
 import Login from "views/Login/Login.jsx";
 import Users from "views/Users/Users.jsx";
-import Client from "views/Users/Client.jsx";
+import User from "views/Users/User.jsx";
 import Maps from "views/Maps/Maps.jsx";
 import Notifications from "views/Notifications/Notifications";
 
@@ -47,13 +51,25 @@ const dashboardRoutes = [
     invisible: true
   },
   {
-    path: "/Users/:id",
-    icon: "content_paste",
-    component: Client,
+    path: "/updateuser/:id",
+    navbarName: "Update User",
+    component: UpdateUser,
     invisible: true
   },
   {
-    path: "/Users",
+    path: "/createuser",
+    navbarName: "Create User",
+    component: CreateUser,
+    invisible: true
+  },
+  {
+    path: "/users/:name",
+    icon: "content_paste",
+    component: User,
+    invisible: true
+  },
+  {
+    path: "/users",
     sidebarName: "Users",
     navbarName: "Users",
     icon: BubbleChart,
