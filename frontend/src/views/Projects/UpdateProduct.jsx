@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Mutation } from "react-apollo";
+import { Mutation, Query } from "react-apollo";
 import gql from "graphql-tag";
+import { withStyles } from "@material-ui/core/styles";
 import {
   Card,
   Button,
@@ -11,27 +12,27 @@ import {
   // TextField,
   Input
 } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
 import ErrorMessage from "components/ErrorMessage.jsx";
 
-const CREATE_USER_MUTATION = gql`
-  mutation CREATE_USER_MUTATION(
-    $name: String!
-    $email: String!
-    $jobTitle: String!
-    $telephone: String!
+const UPDATE_PRODUCT_MUTATION = gql`
+  mutation UPDATE_PRODUCT_MUTATION(
+    $id: ID!
+    $name: String
+    $description: String
+    $price: Int
     $image: String
-    $password: String!
   ) {
-    createUser(
+    updateProduct(
+      id: $id
       name: $name
-      email: $email
-      jobTitle: $jobTitle
-      telephone: $telephone
+      description: $description
+      price: $price
       image: $image
-      password: $password
     ) {
       id
+      name
+      description
+      price
       image
     }
   }
@@ -46,19 +47,18 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5]
   },
-  input : {
+  input: {
     width: "90%",
     padding: "1%"
   }
 });
 
-class CreateUser extends React.Component {
+class UpdateProduct extends React.Component {
   state = {
-    password: "", 
+    id: this.props.location.state.product.id,
     name: "",
-    email: "",
-    jobTitle: "",
-    telephone: "",
+    description: "",
+    price: "",
     image: ""
   };
 
@@ -66,7 +66,7 @@ class CreateUser extends React.Component {
     const files = e.target.files;
     const data = new FormData();
     data.append("file", files[0]);
-    data.append("upload_preset", "users_list");
+    data.append("upload_preset", "products");
     const res = await fetch(
       "https://api.cloudinary.com/v1_1/serban/image/upload",
       {
@@ -88,71 +88,74 @@ class CreateUser extends React.Component {
     this.setState({ [name]: val }); //https://medium.com/@tmkelly28/handling-multiple-form-inputs-in-react-c5eb83755d15
   };
 
+  updateProduct = async (e, updateProductFunc) => {
+    e.preventDefault();
+    console.log(this.props.location.state.id);
+    const res = await updateProductFunc({
+      variables: {
+        ...this.state
+      }
+    });
+    console.log(res);
+  };
+
   render() {
     const { classes } = this.props;
     return (
-      <Mutation mutation={CREATE_USER_MUTATION} variables={this.state}>
-        {(createUser, { loading, error }) => {
+      <Mutation mutation={UPDATE_PRODUCT_MUTATION} variables={this.state}>
+        {(updateProduct, { loading, error }) => {
           return (
             <Card>
-              <form className={ classes.form }
+              <form
+                className={classes.form}
                 onSubmit={async e => {
                   e.preventDefault();
-                  const res = await createUser();
-                  //refresh page
+                  const res = await updateProduct();
+                //   refresh page
                   console.log(res);
+                  this.props.history.push({
+                    pathname: `/products/${res.data.updateProduct.id}`,
+                    state: { product: res.data.updateProduct }
+                  });
                 }}
               >
                 {/* <FormControl disabled={loading} className={classes.formControl}> */}
                 <ErrorMessage error={error} />
-                <Input className={ classes.input }
+                <Input
+                  className={classes.input}
                   required={true}
                   name="file"
                   type="file"
                   placeholder="Upload an image"
                   onChange={this.uploadFile}
                 />
-                <Input className={ classes.input }
+                <Input
+                  className={classes.input}
                   required={true}
                   name="name"
                   type="text"
-                  placeholder="User Name"
+                  placeholder="Name"
                   value={this.state.name}
                   onChange={this.handleInputChange}
                 />
 
-                <Input className={ classes.input }
+                <Input
+                  className={classes.input}
                   required={true}
-                  name="jobTitle"
+                  name="description"
                   type="text"
-                  placeholder="JobTitle"
-                  value={this.state.jobTitle}
+                  placeholder="Description"
+                  value={this.state.description}
                   onChange={this.handleInputChange}
                 />
 
-                <Input className={ classes.input }
+                <Input
+                  className={classes.input}
                   required={true}
-                  name="telephone"
+                  name="price"
                   type="text"
-                  placeholder="Telephone Number"
-                  value={this.state.telephone}
-                  onChange={this.handleInputChange}
-                />
-
-                <Input className={ classes.input }
-                  required={true}
-                  name="email"
-                  type="email"
-                  placeholder="Email"
-                  value={this.state.email}
-                  onChange={this.handleInputChange}
-                />
-                <Input className={ classes.input }
-                  required={true}
-                  name="password"
-                  type="password"
-                  placeholder="password"
-                  value={this.state.password}
+                  placeholder="Price"
+                  value={this.state.price}
                   onChange={this.handleInputChange}
                 />
                 {/* </FormControl> */}
@@ -173,10 +176,4 @@ class CreateUser extends React.Component {
   }
 }
 
-CreateUser.propTypes = {
-  classes: PropTypes.object
-};
-// We need an intermediary variable for handling the recursive nesting.
-
-export default withStyles(styles)(CreateUser);
-export { CREATE_USER_MUTATION };
+export default withStyles(styles)(UpdateProduct);

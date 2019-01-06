@@ -14,24 +14,23 @@ import {
 import { withStyles } from "@material-ui/core/styles";
 import ErrorMessage from "components/ErrorMessage.jsx";
 
-const CREATE_USER_MUTATION = gql`
-  mutation CREATE_USER_MUTATION(
+const CREATE_PRODUCT_MUTATION = gql`
+  mutation CREATE_PRODUCT_MUTATION(
     $name: String!
-    $email: String!
-    $jobTitle: String!
-    $telephone: String!
+    $description: String!
+    $price: Int!
     $image: String
-    $password: String!
   ) {
-    createUser(
+    createProduct(
       name: $name
-      email: $email
-      jobTitle: $jobTitle
-      telephone: $telephone
+      description: $description
+      price: $price
       image: $image
-      password: $password
     ) {
       id
+      name
+      description
+      price
       image
     }
   }
@@ -46,19 +45,17 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5]
   },
-  input : {
+  input: {
     width: "90%",
     padding: "1%"
   }
 });
 
-class CreateUser extends React.Component {
+class CreateProduct extends React.Component {
   state = {
-    password: "", 
     name: "",
-    email: "",
-    jobTitle: "",
-    telephone: "",
+    description: "",
+    price: "",
     image: ""
   };
 
@@ -66,7 +63,7 @@ class CreateUser extends React.Component {
     const files = e.target.files;
     const data = new FormData();
     data.append("file", files[0]);
-    data.append("upload_preset", "users_list");
+    data.append("upload_preset", "products");
     const res = await fetch(
       "https://api.cloudinary.com/v1_1/serban/image/upload",
       {
@@ -91,68 +88,60 @@ class CreateUser extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <Mutation mutation={CREATE_USER_MUTATION} variables={this.state}>
-        {(createUser, { loading, error }) => {
+      <Mutation mutation={CREATE_PRODUCT_MUTATION} variables={this.state}>
+        {(createProduct, { loading, error }) => {
           return (
             <Card>
-              <form className={ classes.form }
+              <form
+                className={classes.form}
                 onSubmit={async e => {
                   e.preventDefault();
-                  const res = await createUser();
+                  const res = await createProduct();
                   //refresh page
                   console.log(res);
+                  this.props.history.push({
+                    pathname: `/products/${res.data.createProduct.id}`,
+                    state: { product: res.data.createProduct }
+                  });
                 }}
               >
                 {/* <FormControl disabled={loading} className={classes.formControl}> */}
                 <ErrorMessage error={error} />
-                <Input className={ classes.input }
+                <Input
+                  className={classes.input}
                   required={true}
                   name="file"
                   type="file"
                   placeholder="Upload an image"
                   onChange={this.uploadFile}
                 />
-                <Input className={ classes.input }
+                <Input
+                  className={classes.input}
                   required={true}
                   name="name"
                   type="text"
-                  placeholder="User Name"
+                  placeholder="Name"
                   value={this.state.name}
                   onChange={this.handleInputChange}
                 />
 
-                <Input className={ classes.input }
+                <Input
+                  className={classes.input}
                   required={true}
-                  name="jobTitle"
+                  name="description"
                   type="text"
-                  placeholder="JobTitle"
-                  value={this.state.jobTitle}
+                  placeholder="Description"
+                  value={this.state.description}
                   onChange={this.handleInputChange}
                 />
 
-                <Input className={ classes.input }
+                <Input
+                  className={classes.input}
                   required={true}
-                  name="telephone"
+                  name="price"
                   type="text"
-                  placeholder="Telephone Number"
-                  value={this.state.telephone}
-                  onChange={this.handleInputChange}
-                />
-
-                <Input className={ classes.input }
-                  required={true}
-                  name="email"
-                  type="email"
-                  placeholder="Email"
-                  value={this.state.email}
-                  onChange={this.handleInputChange}
-                />
-                <Input className={ classes.input }
-                  required={true}
-                  name="password"
-                  type="password"
-                  placeholder="password"
-                  value={this.state.password}
+                  placeholder="Price"
+                  value={this.state.price}
                   onChange={this.handleInputChange}
                 />
                 {/* </FormControl> */}
@@ -173,10 +162,10 @@ class CreateUser extends React.Component {
   }
 }
 
-CreateUser.propTypes = {
+CreateProduct.propTypes = {
   classes: PropTypes.object
 };
 // We need an intermediary variable for handling the recursive nesting.
 
-export default withStyles(styles)(CreateUser);
-export { CREATE_USER_MUTATION };
+export default withStyles(styles)(CreateProduct);
+export { CREATE_PRODUCT_MUTATION };

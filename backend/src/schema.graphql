@@ -1,12 +1,27 @@
 # import * from './generated/prisma.graphql'
 
+enum ProductOrderByInput {
+  name_ASC
+  name_DESC
+  price_ASC
+  price_DESC
+}
+
 type Mutation {
-  createUser(email: String, name: String, jobTitle: String, telephone: String, image: String): User!
+  createUser(email: String, name: String, jobTitle: String, telephone: String, image: String, password: String!): User!
   updateUser(id: ID! email: String, name: String, jobTitle: String, telephone: String): User!
   deleteUser(id: ID! email: String, name: String, jobTitle: String, telephone: String): User!
+  createProduct(name: String, description: String, image: String, price: Int): Product!
+  deleteProduct(id: ID! name: String, description: String, image: String, price: Int): Product!
+  updateProduct(id: ID! name: String, description: String, image: String, price: Int): Product!
+
+  signup(email:String!, password: String!, name: String!): User!
 }
 
 type Query {
+  productsConnection(where: ProductWhereInput): ProductConnection!  
+  products(orderBy: ProductOrderByInput, skip: Int, first: Int): [Product]!
   users: [User]!
   user(where: UserWhereUniqueInput!): User
 }
+

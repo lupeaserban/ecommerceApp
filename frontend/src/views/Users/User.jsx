@@ -1,6 +1,4 @@
 import React from "react";
-import Active from "@material-ui/icons/CheckCircle";
-import { Tooltip} from "@material-ui/core";
 
 class User extends React.Component {
   getStatus = status => {
@@ -22,16 +20,6 @@ class User extends React.Component {
         <div>{user.name}</div>
         <div>{user.jobTitle}</div>
         <div>{user.email}</div>
-        <div>{user.telephone}</div>
-        {this.getStatus() ? (
-          <Tooltip title="online">
-            <Active style={{ color: "green" }} />
-          </Tooltip>
-        ) : (
-          <Tooltip title="offline">
-            <Active style={{ color: "red" }} />
-          </Tooltip>
-        )}
       </div>
     );
   }

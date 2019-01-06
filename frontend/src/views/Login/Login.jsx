@@ -1,4 +1,5 @@
 import React from "react";
+import SignUp from "./SignUp.jsx";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
@@ -36,29 +37,17 @@ class Login extends React.Component {
     const { classes } = this.props;
     return (
       <Card className={classes.card}>
-        <OutlinedInput className={classes.input} placeholder="email" required />
+        <OutlinedInput className={classes.input} placeholder="email" required labelWidth={2}/>
         <OutlinedInput
+          labelWidth={2}
           className={classes.input}
           placeholder="password"
           required
         />
 
-        <Button className={classes.buttons} variant="contained" color="primary">
-          Login
-        </Button>
-
-        <Button className={classes.buttons} color="primary" variant="contained">
-          Sign Up
-        </Button>
-
-        <Button
-          onClick={this.goHome}
-          className={classes.buttons}
-          color="primary"
-          variant="contained"
-        >
-          SKIP
-        </Button>
+        <Button>Login</Button>
+        <SignUp />
+        <Button onClick={this.goHome}>SKIP</Button>
       </Card>
     );
   }

@@ -1,27 +1,29 @@
+enum Persmission {
+  ADMIN
+  USER
+  USERCREATE
+  USERUPDATE
+  USERDELETE
+  PERMISSIONUPDATE
+}
+
 type User {
   id: ID! @unique
-  email: String
+  email: String @unique
+  password: String!
+  resetToken: Float
+  resetTokenExpiry: String
+  permissions: [Persmission]
   name: String
   jobTitle: String
   telephone: String
   image: String
 }
 
-type UserRole {
-  id: ID! @unique
-  name: String
-}
-
-type Company {
+type Product {
   id: ID! @unique
   name: String!
-  legalName: String
-  countryId: String
-  regNo: String
-  address: String
-  email: String
-  country: String
-  county: String
-  city: String
-  # users: User
+  price: Int!
+  description: String!
+  image: String
 }

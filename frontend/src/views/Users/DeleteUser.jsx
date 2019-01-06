@@ -37,9 +37,11 @@ export default class DeleteUser extends Component {
   };
 
   render() {
+    console.log(this.state)
     return (
       <Mutation mutation={DELETE_USER_MUTATION} variables={this.state}>
         {(deleteUser, { loading, error }) => {
+          console.log(this.state)
           return (
                 <Button onClick={ e => this.deleteUser (e, deleteUser)}>
                   <DeleteIcon />

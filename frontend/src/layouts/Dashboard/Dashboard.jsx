@@ -13,7 +13,7 @@ import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
 import dashboardRoutes from "routes/dashboard.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
-import image from "assets/img/sidebar-2.jpg";
+import image from "assets/img/cover.jpeg";
 import logo from "assets/img/reactlogo.png";
 
 const switchRoutes = (
@@ -87,7 +87,7 @@ class App extends React.Component {
           <div className={classes.map}>
             <Sidebar
               routes={dashboardRoutes}
-              logoText={""}
+              logoText={"gotsnow.com"}
               logo={logo}
               image={image}
               handleDrawerToggle={this.handleDrawerToggle}

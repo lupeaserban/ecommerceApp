@@ -26,7 +26,7 @@ class Maps extends React.Component {
           lat: position.coords.latitude
         };
       });
-      console.log(this.state);
+      // console.log(this.state);
 
       let popup = new mapboxgl.Popup({
         offset: 15,
@@ -50,15 +50,6 @@ class Maps extends React.Component {
       bearing: options.bearing,
       pitch: options.pitch
     });
-    let popup = new mapboxgl.Popup({
-      offset: 15,
-      anchor: "bottom-left"
-    }).setText("InMotion");
-    new mapboxgl.Marker()
-      .setLngLat([23.587171733379364, 46.781043309352164])
-      .addTo(map)
-      .setPopup(popup);
-
     this.map = map;
     this.showPosition(map);
   }

@@ -3,21 +3,19 @@ import Person from "@material-ui/icons/Person";
 import Folder from "@material-ui/icons/Folder";
 import BubbleChart from "@material-ui/icons/BubbleChart";
 import LocationOn from "@material-ui/icons/LocationOn";
-import Notification from "@material-ui/icons/NotificationImportant";
 // core components/views
 import Account from "views/Account/Account.jsx";
-import Projects from "views/Projects/Projects.jsx";
-import Project from "views/Projects/Project.jsx";
-
+import Products from "views/Projects/Products.jsx";
+import Product from "views/Projects/Product.jsx";
 import UpdateUser  from "views/Users/UpdateUser.jsx"
 import CreateUser  from "views/Users/CreateUser.jsx"
-
-
 import Login from "views/Login/Login.jsx";
 import Users from "views/Users/Users.jsx";
 import User from "views/Users/User.jsx";
 import Maps from "views/Maps/Maps.jsx";
-import Notifications from "views/Notifications/Notifications";
+import CreateProduct from "../views/Projects/CreateProduct.jsx";
+import UpdateProduct from "../views/Projects/UpdateProduct.jsx";
+
 
 const dashboardRoutes = [
   {
@@ -25,22 +23,8 @@ const dashboardRoutes = [
     sidebarName: "My Account",
     navbarName: "My Account",
     icon: Person,
-    component: Account
-  },
-  {
-    path: "/projects/:id",
-    icon: "Projects",
-    navbarName: "Timeline",
-    component: Project,
-    invisible: true,
-    noSidebar: true
-  },
-  {
-    path: "/projects",
-    sidebarName: "Projects",
-    navbarName: "Projects",
-    icon: Folder,
-    component: Projects
+    component: Account,
+    invisible: true
   },
   {
     path: "/login",
@@ -48,7 +32,33 @@ const dashboardRoutes = [
     navbarName: "Login or Sign Up",
     icon: Person,
     component: Login,
+    
+  },
+  {
+    path: "/products/:id",
+    icon: "Products",
+    navbarName: "Product",
+    component: Product,
     invisible: true
+  },
+  {
+    path: "/createproduct",
+    navbarName: "Create Product",
+    component: CreateProduct,
+    invisible: true
+  },
+  {
+    path: "/updateproduct/:id",
+    navbarName: "Update User",
+    component: UpdateProduct,
+    invisible: true
+  },
+  {
+    path: "/products",
+    sidebarName: "Products",
+    navbarName: "Products",
+    icon: Folder,
+    component: Products
   },
   {
     path: "/updateuser/:id",
@@ -74,12 +84,6 @@ const dashboardRoutes = [
     navbarName: "Users",
     icon: BubbleChart,
     component: Users
-  },
-  {
-    path: "/notifications",
-    sidebarName: "Notifications",
-    icon: Notification,
-    component: Notifications
   },
   {
     path: "/maps",
